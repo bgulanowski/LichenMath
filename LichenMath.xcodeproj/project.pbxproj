@@ -7,14 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		84780D6B197F353C000C3B9B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84780D6A197F353C000C3B9B /* Cocoa.framework */; };
 		84780D75197F353C000C3B9B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84780D73197F353C000C3B9B /* InfoPlist.strings */; };
 		84780D79197F353C000C3B9B /* LichenMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 84780D78197F353C000C3B9B /* LichenMath.m */; };
 		84780D80197F353C000C3B9B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84780D7F197F353C000C3B9B /* XCTest.framework */; };
-		84780D81197F353C000C3B9B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84780D6A197F353C000C3B9B /* Cocoa.framework */; };
 		84780D84197F353C000C3B9B /* LichenMath.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84780D67197F353C000C3B9B /* LichenMath.framework */; };
 		84780D8A197F353C000C3B9B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84780D88197F353C000C3B9B /* InfoPlist.strings */; };
 		84780D8C197F353C000C3B9B /* LichenMathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 84780D8B197F353C000C3B9B /* LichenMathTests.m */; };
+		84780D97197F3588000C3B9B /* LIRange.h in Headers */ = {isa = PBXBuildFile; fileRef = 84780D95197F3588000C3B9B /* LIRange.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		84780D98197F3588000C3B9B /* LIRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 84780D96197F3588000C3B9B /* LIRange.m */; };
+		84780D9B197F3AA7000C3B9B /* LIPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 84780D99197F3AA7000C3B9B /* LIPoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		84780D9C197F3AA7000C3B9B /* LIPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 84780D9A197F3AA7000C3B9B /* LIPoint.m */; };
+		84E292291980DC8D00064591 /* LIVector.h in Headers */ = {isa = PBXBuildFile; fileRef = 84E292271980DC8D00064591 /* LIVector.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		84E2922A1980DC8D00064591 /* LIVector.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E292281980DC8D00064591 /* LIVector.m */; };
+		84E2922D1980DF0200064591 /* LIMatrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 84E2922B1980DF0200064591 /* LIMatrix.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		84E2922E1980DF0200064591 /* LIMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E2922C1980DF0200064591 /* LIMatrix.m */; };
+		84E2922F1980E03E00064591 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84780D6D197F353C000C3B9B /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,10 +36,7 @@
 
 /* Begin PBXFileReference section */
 		84780D67197F353C000C3B9B /* LichenMath.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LichenMath.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		84780D6A197F353C000C3B9B /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		84780D6D197F353C000C3B9B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		84780D6E197F353C000C3B9B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		84780D6F197F353C000C3B9B /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		84780D72197F353C000C3B9B /* LichenMath-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LichenMath-Info.plist"; sourceTree = "<group>"; };
 		84780D74197F353C000C3B9B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84780D76197F353C000C3B9B /* LichenMath-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LichenMath-Prefix.pch"; sourceTree = "<group>"; };
@@ -43,6 +47,14 @@
 		84780D87197F353C000C3B9B /* LichenMathTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LichenMathTests-Info.plist"; sourceTree = "<group>"; };
 		84780D89197F353C000C3B9B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84780D8B197F353C000C3B9B /* LichenMathTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LichenMathTests.m; sourceTree = "<group>"; };
+		84780D95197F3588000C3B9B /* LIRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LIRange.h; sourceTree = "<group>"; };
+		84780D96197F3588000C3B9B /* LIRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LIRange.m; sourceTree = "<group>"; };
+		84780D99197F3AA7000C3B9B /* LIPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LIPoint.h; sourceTree = "<group>"; };
+		84780D9A197F3AA7000C3B9B /* LIPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LIPoint.m; sourceTree = "<group>"; };
+		84E292271980DC8D00064591 /* LIVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LIVector.h; sourceTree = "<group>"; };
+		84E292281980DC8D00064591 /* LIVector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LIVector.m; sourceTree = "<group>"; };
+		84E2922B1980DF0200064591 /* LIMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LIMatrix.h; sourceTree = "<group>"; };
+		84E2922C1980DF0200064591 /* LIMatrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LIMatrix.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,7 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84780D6B197F353C000C3B9B /* Cocoa.framework in Frameworks */,
+				84E2922F1980E03E00064591 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,7 +71,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				84780D84197F353C000C3B9B /* LichenMath.framework in Frameworks */,
-				84780D81197F353C000C3B9B /* Cocoa.framework in Frameworks */,
 				84780D80197F353C000C3B9B /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -89,7 +100,7 @@
 		84780D69197F353C000C3B9B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				84780D6A197F353C000C3B9B /* Cocoa.framework */,
+				84780D6D197F353C000C3B9B /* Foundation.framework */,
 				84780D7F197F353C000C3B9B /* XCTest.framework */,
 				84780D6C197F353C000C3B9B /* Other Frameworks */,
 			);
@@ -99,9 +110,6 @@
 		84780D6C197F353C000C3B9B /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				84780D6D197F353C000C3B9B /* Foundation.framework */,
-				84780D6E197F353C000C3B9B /* CoreData.framework */,
-				84780D6F197F353C000C3B9B /* AppKit.framework */,
 			);
 			name = "Other Frameworks";
 			sourceTree = "<group>";
@@ -112,6 +120,14 @@
 				84780D77197F353C000C3B9B /* LichenMath.h */,
 				84780D78197F353C000C3B9B /* LichenMath.m */,
 				84780D71197F353C000C3B9B /* Supporting Files */,
+				84E2922B1980DF0200064591 /* LIMatrix.h */,
+				84E2922C1980DF0200064591 /* LIMatrix.m */,
+				84780D95197F3588000C3B9B /* LIRange.h */,
+				84780D96197F3588000C3B9B /* LIRange.m */,
+				84780D99197F3AA7000C3B9B /* LIPoint.h */,
+				84780D9A197F3AA7000C3B9B /* LIPoint.m */,
+				84E292271980DC8D00064591 /* LIVector.h */,
+				84E292281980DC8D00064591 /* LIVector.m */,
 			);
 			path = LichenMath;
 			sourceTree = "<group>";
@@ -151,6 +167,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84E292291980DC8D00064591 /* LIVector.h in Headers */,
+				84780D9B197F3AA7000C3B9B /* LIPoint.h in Headers */,
+				84E2922D1980DF0200064591 /* LIMatrix.h in Headers */,
+				84780D97197F3588000C3B9B /* LIRange.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,7 +269,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84780D98197F3588000C3B9B /* LIRange.m in Sources */,
+				84E2922A1980DC8D00064591 /* LIVector.m in Sources */,
+				84780D9C197F3AA7000C3B9B /* LIPoint.m in Sources */,
 				84780D79197F353C000C3B9B /* LichenMath.m in Sources */,
+				84E2922E1980DF0200064591 /* LIMatrix.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,6 +474,7 @@
 				84780D91197F353C000C3B9B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		84780D92197F353C000C3B9B /* Build configuration list for PBXNativeTarget "LichenMathTests" */ = {
 			isa = XCConfigurationList;
@@ -458,6 +483,7 @@
 				84780D94197F353C000C3B9B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
