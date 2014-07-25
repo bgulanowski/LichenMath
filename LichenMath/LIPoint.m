@@ -1,5 +1,5 @@
 //
-//  LIPoint.m
+//  LIPoint_t.m
 //  LichenMath
 //
 //  Created by Brent Gulanowski on 2014-07-22.
@@ -8,12 +8,12 @@
 
 #import "LIPoint.h"
 
-NSString *LIPoint4fToString(LIPoint4f p) {
+NSString *LIPointToString(LIPoint_t p) {
 	return [NSString stringWithFormat:@"{%.8f,%.8f,%.8f,%.8f}", p.x, p.y, p.z, p.w];
 }
 
-LIPoint4f LIPoint4fFromString(NSString *string) {
-	LIPoint4f r;
+LIPoint_t LIPointFromString(NSString *string) {
+	LIPoint_t r;
 	sscanf([string cStringUsingEncoding:NSASCIIStringEncoding],
            "{%f,%f,%f,%f}",
            &(r.x), &(r.y), &(r.z), &(r.w));
@@ -25,17 +25,17 @@ LIPoint4f LIPoint4fFromString(NSString *string) {
 #pragma mark - NSCopying
 
 - (id)copyWithZone:(NSZone *)zone {
-	return [LIPoint pointWithPoint4f:_point4f];
+	return [LIPoint pointWithPoint:_point];
 }
 
 #pragma mark - NSCoding
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
 	if ([aCoder allowsKeyedCoding]) {
-		[aCoder encodeBytes:(uint8_t *)&_point4f length:sizeof(LIPoint4f) forKey:@"r"];
+		[aCoder encodeBytes:(uint8_t *)&_point length:sizeof(LIPoint_t) forKey:@"r"];
 	}
 	else {
-		[aCoder encodeBytes:&_point4f length:sizeof(LIPoint4f)];
+		[aCoder encodeBytes:&_point length:sizeof(LIPoint_t)];
 	}
 }
 
@@ -43,29 +43,29 @@ LIPoint4f LIPoint4fFromString(NSString *string) {
 	self = [super init];
 	if (self) {
 		if ([aDecoder allowsKeyedCoding]) {
-			memcpy(&_point4f, [aDecoder decodeBytesForKey:@"r" returnedLength:NULL], sizeof(LIPoint4f));
+			memcpy(&_point, [aDecoder decodeBytesForKey:@"r" returnedLength:NULL], sizeof(LIPoint_t));
 		}
 		else {
-			memcpy(&_point4f, [aDecoder decodeBytesWithReturnedLength:NULL], sizeof(LIPoint4f));
+			memcpy(&_point, [aDecoder decodeBytesWithReturnedLength:NULL], sizeof(LIPoint_t));
 		}
 	}
 	return self;
 }
 
-- (instancetype)initWithPoint4f:(LIPoint4f)point4f {
+- (instancetype)initWithPoint:(LIPoint_t)point {
 	self = [super init];
 	if (self) {
-		_point4f = point4f;
+		_point = point;
 	}
 	return self;
 }
 
-+ (instancetype)pointWithPoint4f:(LIPoint4f)point4f {
-	return [[self alloc] initWithPoint4f:point4f];
++ (instancetype)pointWithPoint:(LIPoint_t)point {
+	return [[self alloc] initWithPoint:point];
 }
 
 + (instancetype)pointWithX:(float)x y:(float)y z:(float)z w:(float)w {
-	return [self pointWithPoint4f:LIPoint4fMake(x, y, z, w)];
+	return [self pointWithPoint:LIPointMake(x, y, z, w)];
 }
 
 @end

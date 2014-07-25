@@ -9,17 +9,17 @@
 #import "LIVector.h"
 
 #define scanGLfloat scanFloat
-#define BAPointf LIVector3f
+#define LIPointf LIVector_t
 
-static NSString * const vector3fKey = @"_vector3f";
+static NSString * const vectorKey = @"_vector";
 
-NSString *LIVectorToString(LIVector3f v) {
+NSString *LIVectorToString(LIVector_t v) {
 	return [NSString stringWithFormat:@"{%.20f,%.20f,%.20f}", v.x, v.y, v.z];
 }
 
-LIVector3f LIVectorFromString(NSString *s) {
+LIVector_t LIVectorFromString(NSString *s) {
 	
-	LIVector3f result = {0,0,0};
+	LIVector_t result = {0,0,0};
 	NSScanner *scanner = [NSScanner scannerWithString:s];
 	
 	[scanner scanString:@"{" intoString:nil];
@@ -37,7 +37,7 @@ LIVector3f LIVectorFromString(NSString *s) {
 #pragma mark - NSCopying
 
 - (id)copyWithZone:(NSZone *)zone {
-	return [[self class] vectorWithVector3f:_vector3f];
+	return [[self class] vectorWithVector:_vector];
 }
 
 #pragma mark - NSCoding
@@ -46,10 +46,10 @@ LIVector3f LIVectorFromString(NSString *s) {
 	self = [super init];
 	if (self) {
 		if ([aDecoder allowsKeyedCoding]) {
-			memcpy(&_vector3f, [aDecoder decodeBytesForKey:vector3fKey returnedLength:NULL], sizeof(_vector3f));
+			memcpy(&_vector, [aDecoder decodeBytesForKey:vectorKey returnedLength:NULL], sizeof(_vector));
 		}
 		else {
-			memcpy(&_vector3f, [aDecoder decodeBytesWithReturnedLength:NULL], sizeof(_vector3f));
+			memcpy(&_vector, [aDecoder decodeBytesWithReturnedLength:NULL], sizeof(_vector));
 		}
 	}
 	return self;
@@ -57,29 +57,29 @@ LIVector3f LIVectorFromString(NSString *s) {
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
 	if ([aCoder allowsKeyedCoding]) {
-		[aCoder encodeBytes:(const uint8_t *)&_vector3f length:sizeof(_vector3f) forKey:vector3fKey];
+		[aCoder encodeBytes:(const uint8_t *)&_vector length:sizeof(_vector) forKey:vectorKey];
 	}
 	else {
-		[aCoder encodeBytes:&_vector3f length:sizeof(_vector3f)];
+		[aCoder encodeBytes:&_vector length:sizeof(_vector)];
 	}
 }
 
 #pragma mark - LIVector
 
-- (instancetype)initWithVector3f:(LIVector3f)vector3f {
+- (instancetype)initWithVector:(LIVector_t)vector {
 	self = [super init];
 	if (self) {
-		_vector3f = vector3f;
+		_vector = vector;
 	}
 	return self;
 }
 
-+ (instancetype)vectorWithVector3f:(LIVector3f)vector3f {
-	return [[self alloc] initWithVector3f:vector3f];
++ (instancetype)vectorWithVector:(LIVector_t)vector {
+	return [[self alloc] initWithVector:vector];
 }
 
 + (instancetype)vectorWithX:(float)x y:(float)y z:(float)z {
-	return [self vectorWithVector3f:LIVector3fMake(x, y, z)];
+	return [self vectorWithVector:LIVectorMake(x, y, z)];
 }
 
 @end

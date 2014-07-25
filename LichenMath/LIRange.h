@@ -11,22 +11,22 @@
 typedef struct {
 	float p;
 	float d;
-} LIRange2f;
+} LIRange_t;
 
-NS_INLINE LIRange2f LIRange2fMake(float position, float distance) {
-	return (LIRange2f){ .p = position, .d = distance };
+NS_INLINE LIRange_t LIRangeMake(float position, float distance) {
+	return (LIRange_t){ .p = position, .d = distance };
 };
 
-NS_INLINE BOOL LIRange2fEquals( LIRange2f r1, LIRange2f r2) {
+NS_INLINE BOOL LIRangeEquals( LIRange_t r1, LIRange_t r2) {
 	return r1.p == r2.p && r1.d == r2.d;
 }
 
 @interface LIRange : NSObject<NSCopying, NSCoding>
 
-@property (nonatomic, readonly) LIRange2f range2f;
+@property (nonatomic, readonly) LIRange_t range;
 
-- (instancetype)initWithRange:(LIRange2f)range;
-+ (instancetype)rangeWithRange:(LIRange2f)range;
+- (instancetype)initWithRange:(LIRange_t)range;
++ (instancetype)rangeWithRange:(LIRange_t)range;
 + (instancetype)rangeWithPosition:(float)position distance:(float)distance;
 
 @end

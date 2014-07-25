@@ -1,5 +1,5 @@
 //
-//  LIPoint.h
+//  LIPoint_t.h
 //  LichenMath
 //
 //  Created by Brent Gulanowski on 2014-07-22.
@@ -8,28 +8,42 @@
 
 #import <Foundation/Foundation.h>
 
+#import <LichenMath/LIVector.h>
+
 typedef struct {
 	float x;
 	float y;
 	float z;
 	float w;
-} LIPoint4f;
+} LIPoint_t;
 
-#define LIVector4f LIPoint4f
+#define LIVector4_t LIPoint_t
 
-NS_INLINE LIPoint4f LIPoint4fMake(float x, float y, float z, float w) {
-	return (LIPoint4f){.x = x, .y = y, .z = z, .w = w};
+NS_INLINE LIPoint_t LIPointMake(float x, float y, float z, float w) {
+	return (LIPoint_t){.x = x, .y = y, .z = z, .w = w};
 }
 
-extern NSString *LIPoint4fToString(LIPoint4f p);
-extern LIPoint4f LIPoint4fFromString(NSString *string);
+static inline LIPoint_t LIPointTranslate(LIPoint_t p, LIVector_t v) {
+	LIPoint_t r;
+	r.x = p.x + v.x, r.y = p.y + v.y, r.z = p.z + v.z, r.w = p.w;
+	return r;
+}
+
+static inline LIPoint_t LIPointScale(LIPoint_t a, float factor) {
+	LIPoint_t v;
+	v.x = a.x*factor, v.y = a.y*factor, v.z = a.z*factor, v.w = 1;
+	return v;
+}
+
+extern NSString *LIPointToString(LIPoint_t p);
+extern LIPoint_t LIPointFromString(NSString *string);
 
 @interface LIPoint : NSObject<NSCopying, NSCoding>
 
-@property (nonatomic) LIPoint4f point4f;
+@property (nonatomic) LIPoint_t point;
 
-- (instancetype)initWithPoint4f:(LIPoint4f)point4f;
-+ (instancetype)pointWithPoint4f:(LIPoint4f)point4f;
+- (instancetype)initWithPoint:(LIPoint_t)point;
++ (instancetype)pointWithPoint:(LIPoint_t)point;
 + (instancetype)pointWithX:(float)x y:(float)y z:(float)z w:(float)w;
 
 @end
