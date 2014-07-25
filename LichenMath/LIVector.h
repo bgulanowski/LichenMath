@@ -71,6 +71,18 @@ NS_INLINE float LIInteriorAngleVector3(LIVector_t a, LIVector_t b) {
     return acosf( LIDotProductVectors3(a, b) );
 }
 
+NS_INLINE BOOL LIVectorIsXAligned(LIVector_t v) {
+	return v.y == 0.0f && v.z == 0.0f;
+}
+
+NS_INLINE BOOL LIVectorIsYAligned(LIVector_t v) {
+	return v.x == 0.0f && v.z == 0.0f;
+}
+
+NS_INLINE BOOL LIVectorIsZAligned(LIVector_t v) {
+	return v.x == 0.0f && v.y == 0.0f;
+}
+
 extern NSString *LIVectorToString(LIVector_t v);
 extern LIVector_t LIVectorFromString(NSString *s);
 

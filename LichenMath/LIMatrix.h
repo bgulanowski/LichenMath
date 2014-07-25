@@ -11,6 +11,8 @@
 #import <LichenMath/LIVector.h>
 #import <LichenMath/LIPoint.h>
 
+// All angles are in radians
+
 #pragma mark - macro definitions
 
 #define sine sinf
@@ -57,6 +59,8 @@ NS_INLINE LIMatrix_t LIMatrixMake(float elements[16]) {
 	return matrix;
 }
 
+// Normally you would want to make column-major matrices, but the Row function makes visualization easier in code
+
 NS_INLINE LIMatrix_t LIMatrixMakeWithRowElements(float a00, float a01, float a02, float a03,
 												 float a10, float a11, float a12, float a13,
 												 float a20, float a21, float a22, float a23,
@@ -69,13 +73,25 @@ NS_INLINE LIMatrix_t LIMatrixMakeWithRowElements(float a00, float a01, float a02
 	return m;
 }
 
-NS_INLINE LIMatrix_t LITranslationMatrix(LIVector_t v) {
+NS_INLINE LIMatrix_t LIMatrixMakeWithColumnElements(float a00, float a01, float a02, float a03,
+													float a10, float a11, float a12, float a13,
+													float a20, float a21, float a22, float a23,
+													float a30, float a31, float a32, float a33) {
+	LIMatrix_t m;
+	m.v[0].x = a00; m.v[0].y = a01; m.v[0].z = a02; m.v[0].w = a03;
+	m.v[1].x = a10; m.v[1].y = a11; m.v[1].z = a12; m.v[1].w = a13;
+	m.v[2].x = a20; m.v[2].y = a21; m.v[2].z = a22; m.v[2].w = a23;
+	m.v[3].x = a30; m.v[3].y = a31; m.v[3].z = a32; m.v[3].w = a33;
+	return m;
+}
+
+NS_INLINE LIMatrix_t LIMatrixMakeWithTranslation(LIVector_t v) {
 	LIMatrix_t m = LIMatrixIdentity;
 	m.v[3] = LIPointMake(v.x, v.y, v.z, 1.0f);
 	return m;
 }
 
-NS_INLINE LIMatrix_t LIXAxisRotationMatrix(float angle) {
+NS_INLINE LIMatrix_t LIMatrixMakeWithXAxisRotation(float angle) {
 	float cosa = cosine(angle), sina = sine(angle);
 	return LIMatrixMakeWithRowElements(1.0f,    0,    0,    0,
 									      0, cosa, -sina,   0,
@@ -83,7 +99,7 @@ NS_INLINE LIMatrix_t LIXAxisRotationMatrix(float angle) {
 									      0,    0,    0, 1.0f);
 }
 
-NS_INLINE LIMatrix_t LIYAxisRotationMatrix(float angle) {
+NS_INLINE LIMatrix_t LIMatrixMakeWithYAxisRotation(float angle) {
 	float cosa = cosine(angle), sina = sine(angle);
 	return LIMatrixMakeWithRowElements( cosa,    0, sina,    0,
 							               0, 1.0f,    0,    0,
@@ -91,7 +107,7 @@ NS_INLINE LIMatrix_t LIYAxisRotationMatrix(float angle) {
 							               0,    0,    0, 1.0f);
 }
 
-NS_INLINE LIMatrix_t LIZAxisRotationMatrix(float angle) {
+NS_INLINE LIMatrix_t LIMatrixMakeWithZAxisRotation(float angle) {
 	float cosa = cosine(angle), sina = sine(angle);
 	return LIMatrixMakeWithRowElements(cosa, -sina,    0,    0,
 							           sina,  cosa,    0,    0,
@@ -99,7 +115,7 @@ NS_INLINE LIMatrix_t LIZAxisRotationMatrix(float angle) {
 							           0,     0,       0, 1.0f);
 }
 
-NS_INLINE LIMatrix_t LIYZRotationMatrix(LIPoint_t p, float angle) {
+NS_INLINE LIMatrix_t LIMatrixMakeWithYZRotation(LIPoint_t p, float angle) {
 	
 //	if(LIPointIsOrigin(p)) return LIXAxisRotationMatrix(angle);
 	
@@ -117,7 +133,7 @@ NS_INLINE LIMatrix_t LIYZRotationMatrix(LIPoint_t p, float angle) {
 									   0,    0,     0,                1);
 }
 
-NS_INLINE LIMatrix_t LIXZRotationMatrix(LIPoint_t p, float angle) {
+NS_INLINE LIMatrix_t LIMatrixMakeWithXZRotation(LIPoint_t p, float angle) {
 	
 //	if(LIPointIsOrigin(p)) return LIYAxisRotationMatrix(angle);
 	
@@ -135,7 +151,7 @@ NS_INLINE LIMatrix_t LIXZRotationMatrix(LIPoint_t p, float angle) {
 									       0, 0,    0,              1);
 }
 
-NS_INLINE LIMatrix_t LIXYRotationMatrix(LIPoint_t p, float angle) {
+NS_INLINE LIMatrix_t LIMatrixMakeWithXYRotation(LIPoint_t p, float angle) {
 	
 //	if(LIPointIsOrigin(p)) return LIZAxisRotationMatrix(angle);
 	
@@ -153,7 +169,7 @@ NS_INLINE LIMatrix_t LIXYRotationMatrix(LIPoint_t p, float angle) {
 									      0,     0, 0,                1);
 }
 
-NS_INLINE LIMatrix_t LIOriginRotationMatrix(LIVector_t vector, float angle) {
+NS_INLINE LIMatrix_t LIMatrixMakeWithVectorRotation(LIVector_t vector, float angle) {
 	
 	LIVector_t nv = LIVectorNormalize(vector);
 	
@@ -178,13 +194,15 @@ NS_INLINE LIMatrix_t LIOriginRotationMatrix(LIVector_t vector, float angle) {
  									                 0,               0,               0, 1);
 }
 
-NS_INLINE LIMatrix_t LIArbitraryRotationMatrix(LILine axis, float angle) {
+NS_INLINE LIMatrix_t LIMatrixMakeWithArbitraryRotation(LILine axis, float angle) {
 	
-//	if(LIIsXAlignedVector3(axis.v)) return LIYZRotationMatrix(axis.p, angle);
-//	if(LIIsYAlignedVector3(axis.v)) return LIXZRotationMatrix(axis.p, angle);
-//	if(LIIsZAlignedVector3(axis.v)) return LIXYRotationMatrix(axis.p, angle);
+	if(angle == 0.0f) return (LIMatrix_t)LIMatrixIdentity;
 	
-//	if(LIPointIsOrigin(axis.p)) return LIOriginRotationMatrix(axis.v, angle);
+	if(LIPointIsOrigin(axis.p)) return LIMatrixMakeWithVectorRotation(axis.v, angle);
+	
+	if(LIVectorIsXAligned(axis.v)) return LIMatrixMakeWithYZRotation(axis.p, angle);
+	if(LIVectorIsYAligned(axis.v)) return LIMatrixMakeWithXZRotation(axis.p, angle);
+	if(LIVectorIsZAligned(axis.v)) return LIMatrixMakeWithXYRotation(axis.p, angle);
 	
 	LIVector_t nv = LIVectorNormalize(axis.v);
 	
