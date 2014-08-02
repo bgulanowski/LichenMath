@@ -25,7 +25,7 @@
 		84780D98197F3588000C3B9B /* LIRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 84780D96197F3588000C3B9B /* LIRange.m */; };
 		84780D9B197F3AA7000C3B9B /* LIPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 84780D99197F3AA7000C3B9B /* LIPoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84780D9C197F3AA7000C3B9B /* LIPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 84780D9A197F3AA7000C3B9B /* LIPoint.m */; };
-		84B2192B198221D800597F0E /* LIRegion.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B21929198221D800597F0E /* LIRegion.h */; };
+		84B2192B198221D800597F0E /* LIRegion.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B21929198221D800597F0E /* LIRegion.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84B2192C198221D800597F0E /* LIRegion.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B2192A198221D800597F0E /* LIRegion.m */; };
 		84E292291980DC8D00064591 /* LIVector.h in Headers */ = {isa = PBXBuildFile; fileRef = 84E292271980DC8D00064591 /* LIVector.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84E2922A1980DC8D00064591 /* LIVector.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E292281980DC8D00064591 /* LIVector.m */; };
@@ -167,7 +167,6 @@
 			children = (
 				84780D77197F353C000C3B9B /* LichenMath.h */,
 				84780D78197F353C000C3B9B /* LichenMath.m */,
-				84780D71197F353C000C3B9B /* Supporting Files */,
 				84E2922B1980DF0200064591 /* LIMatrix.h */,
 				84E2922C1980DF0200064591 /* LIMatrix.m */,
 				84780D99197F3AA7000C3B9B /* LIPoint.h */,
@@ -179,6 +178,7 @@
 				84E292271980DC8D00064591 /* LIVector.h */,
 				84E292281980DC8D00064591 /* LIVector.m */,
 				84552003198D358B00571109 /* LichenMath_Private.h */,
+				84780D71197F353C000C3B9B /* Supporting Files */,
 			);
 			path = LichenMath;
 			sourceTree = "<group>";
