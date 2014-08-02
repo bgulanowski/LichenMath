@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		842015E5198D233600853E68 /* LichenMath.h in Headers */ = {isa = PBXBuildFile; fileRef = 84780D77197F353C000C3B9B /* LichenMath.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84780D75197F353C000C3B9B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84780D73197F353C000C3B9B /* InfoPlist.strings */; };
 		84780D79197F353C000C3B9B /* LichenMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 84780D78197F353C000C3B9B /* LichenMath.m */; };
 		84780D80197F353C000C3B9B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84780D7F197F353C000C3B9B /* XCTest.framework */; };
@@ -178,6 +179,7 @@
 				84E2922D1980DF0200064591 /* LIMatrix.h in Headers */,
 				84780D97197F3588000C3B9B /* LIRange.h in Headers */,
 				84B2192B198221D800597F0E /* LIRegion.h in Headers */,
+				842015E5198D233600853E68 /* LichenMath.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

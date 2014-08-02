@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+#import <LichenMath/LIMatrix.h>
+#import <LichenMath/LIPoint.h>
+#import <LichenMath/LIRange.h>
+#import <LichenMath/LIRegion.h>
+#import <LichenMath/LIVector.h>
+
 @interface LichenMath : NSObject
 
 @end
