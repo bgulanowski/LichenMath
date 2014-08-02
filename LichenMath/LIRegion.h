@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import <LichenMath/LIPoint.h>
+#import <LichenMath/LIPoint_t.h>
 #import <LichenMath/LIRegion_t.h>
 
 @interface LIRegion : NSObject<NSCopying, NSCoding>

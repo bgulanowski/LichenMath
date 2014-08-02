@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Lichen Labs. All rights reserved.
 //
 
-#ifndef LichenMath_LIMatrix_t_h
-#define LichenMath_LIMatrix_t_h
+#pragma once
 
 #include <LichenMath/LIPoint_t.h>
 #include <LichenMath/LIVector_t.h>
@@ -157,5 +156,3 @@ extern float LIMatrixDeterminant(LIMatrix_t m);
 extern LIMatrix_t LIMatrixInverse(LIMatrix_t m);
 extern LIMatrix_t LIMatrixFocus(LIPoint_t eye, LIPoint_t focus);
 extern LIMatrix_t LIMatrixConcatenate(LIMatrix_t * const m, LIMatrix_t * const c);
-
-#endif

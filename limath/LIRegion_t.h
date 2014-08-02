@@ -6,8 +6,9 @@
 //  Copyright (c) 2014 Lichen Labs. All rights reserved.
 //
 
-#ifndef LichenMath_LIRegion_t_h
-#define LichenMath_LIRegion_t_h
+#pragma once
+
+#include <LichenMath/LIPoint_t.h>
 
 typedef struct {
 	float w;
@@ -37,5 +38,3 @@ static inline LISize_t LISizeMake(float width, float height, float depth) {
 static inline LIRegion_t LIRegionMake(float x, float y, float z, float width, float height, float depth) {
 	return (LIRegion_t) { .origin.p = LIPointMake(x, y, z, 1), .volume.s = LISizeMake(width, height, depth) };
 }
-
-#endif

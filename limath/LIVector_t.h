@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Lichen Labs. All rights reserved.
 //
 
-#ifndef LichenMath_LIVector_t_h
-#define LichenMath_LIVector_t_h
+#pragma once
 
 #include <stdbool.h>
 #include <math.h>
@@ -86,5 +85,3 @@ static inline bool LIVectorIsYAligned(LIVector_t v) {
 static inline bool LIVectorIsZAligned(LIVector_t v) {
 	return v.x == 0.0f && v.y == 0.0f;
 }
-
-#endif

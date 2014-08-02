@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Lichen Labs. All rights reserved.
 //
 
-#ifndef LichenMath_LIPoint_t_h
-#define LichenMath_LIPoint_t_h
+#pragma once
 
 #include <LichenMath/LIVector_t.h>
 
@@ -41,5 +40,3 @@ static inline LIPoint_t LIPointScale(LIPoint_t p, float factor) {
 static inline bool LIPointIsOrigin(LIPoint_t p) {
 	return p.x == 0.0f && p.y == 0.0f && p.z == 0.0f;
 }
-
-#endif
