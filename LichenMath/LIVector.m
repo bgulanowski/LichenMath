@@ -8,7 +8,6 @@
 
 #import "LIVector.h"
 
-#define scanGLfloat scanFloat
 #define LIPointf LIVector_t
 
 static NSString * const vectorKey = @"_vector";
@@ -23,11 +22,11 @@ LIVector_t LIVectorFromString(NSString *s) {
 	NSScanner *scanner = [NSScanner scannerWithString:s];
 	
 	[scanner scanString:@"{" intoString:nil];
-	[scanner scanGLfloat:&(result.x)];
+	[scanner scanFloat:&(result.x)];
 	[scanner scanString:@"," intoString:nil];
-	[scanner scanGLfloat:&(result.y)];
+	[scanner scanFloat:&(result.y)];
 	[scanner scanString:@"," intoString:nil];
-	[scanner scanGLfloat:&(result.z)];
+	[scanner scanFloat:&(result.z)];
 	
 	return result;
 }

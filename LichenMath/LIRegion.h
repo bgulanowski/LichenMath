@@ -26,8 +26,6 @@ typedef union {
 	float i[3];
 } LIVolume_t;
 
-typedef LIVolume_t LIScale_t;
-
 typedef struct {
 	LILocation_t origin;
 	LIVolume_t volume;
