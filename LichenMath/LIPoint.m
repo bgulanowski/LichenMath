@@ -8,6 +8,9 @@
 
 #import "LIPoint.h"
 
+#import "LIMatrix.h"
+#import "LichenMath_Private.h"
+
 NSString *LIPointToString(LIPoint_t p) {
 	return [NSString stringWithFormat:@"{%.8f,%.8f,%.8f,%.8f}", p.x, p.y, p.z, p.w];
 }
@@ -66,6 +69,15 @@ LIPoint_t LIPointFromString(NSString *string) {
 
 + (instancetype)pointWithX:(float)x y:(float)y z:(float)z w:(float)w {
 	return [self pointWithPoint:LIPointMake(x, y, z, w)];
+}
+
+- (LIPoint *)pointWithMatrix:(LIMatrix *)transform {
+//	LIPoint_t r;
+	return nil;
+}
+
+- (void)applyMatrix:(LIMatrix *)matrix {
+	_point = LIMatrixTransformPoint(&(_point), &(matrix->_matrix));
 }
 
 @end

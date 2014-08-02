@@ -35,17 +35,17 @@ typedef struct {
 
 #pragma mark - point transformation
 
-#define LIVectorTransform( _v_, _a_, _m_, _c_ ) do {\
+#define LIVectorTransform( _v_, _a_, _mi_, _c_ ) do {\
 	float *_pv_ = (float *)&_v_;\
-	float *_pa_ = (float *)&_a_;\
+	float *_pa_ = (float *)_a_;\
 	for(unsigned _i_ = 0; _i_ < _c_; ++_i_)\
 		for(unsigned _j_ = 0; _j_ < _c_; ++_j_)\
-			_pv_[_i_] += _pa_[_j_] * _m_.i[_c_*_j_ + _i_];\
+			_pv_[_i_] += _pa_[_j_] * _mi_[_c_*_j_ + _i_];\
 } while(0)
 
-NS_INLINE LIPoint_t LITransformPoint(LIPoint_t a, LIMatrix_t m) {
+NS_INLINE LIPoint_t LIMatrixTransformPoint(LIPoint_t * const a, LIMatrix_t * const m) {
 	LIPoint_t v = {};
-	LIVectorTransform(v, a, m, 4);
+	LIVectorTransform(v, a, m->i, 4);
 	return v;
 }
 
@@ -58,6 +58,18 @@ NS_INLINE LIMatrix_t LIMatrixMake(float elements[16]) {
 	}
 	return matrix;
 }
+
+NS_INLINE void LIMatrixInit(LIMatrix_t *m, float elements[16]) {
+	float *mi = m->i;
+	for (NSUInteger i=0; i<16; ++i) {
+		mi[i] = elements[i];
+	}
+}
+
+#pragma mark - matrix operations
+
+extern LIMatrix_t LIMatrixConcatenate(LIMatrix_t * const m, LIMatrix_t * const c);
+
 
 // Normally you would want to make column-major matrices, but the Row function makes visualization easier in code
 
@@ -136,16 +148,12 @@ NS_INLINE LIMatrix_t LIMatrixTranspose(LIMatrix_t a) {
 }
 
 extern NSUInteger LIMatrixSmallestRowOrColumn( BOOL *isRow, float *m, NSUInteger n);
-extern float LIMatrixDeterminantN(float *m, NSUInteger n);
 extern float LIMatrixMinor( float *m, NSUInteger row, NSUInteger column, NSUInteger n );
-
-
-static inline float LIMatrixDeterminant(LIMatrix_t m) {
-    return LIMatrixDeterminantN(m.i, 4);
-}
+extern float LIMatrixDeterminant(LIMatrix_t m);
 
 extern LIMatrix_t LIMatrixInverse(LIMatrix_t m);
 extern LIMatrix_t LIMatrixFocus(LIPoint_t eye, LIPoint_t focus);
+extern LIMatrix_t LIMatrixConcatenate(LIMatrix_t * const m, LIMatrix_t * const c);
 
 #pragma mark - string encoding
 
@@ -159,5 +167,7 @@ extern LIMatrix_t LIMatrixFromString(NSString *string);
 - (instancetype)initWithMatrix:(LIMatrix_t)matrix;
 + (instancetype)matrixWithMatrix:(LIMatrix_t)matrix;
 + (instancetype)matrixWithElements:(float *)elements;
+
+- (void)concatenate:(LIMatrix *)matrix;
 
 @end

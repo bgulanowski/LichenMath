@@ -42,6 +42,8 @@ NS_INLINE BOOL LIPointIsOrigin(LIPoint_t p) {
 extern NSString *LIPointToString(LIPoint_t p);
 extern LIPoint_t LIPointFromString(NSString *string);
 
+@class LIMatrix;
+
 @interface LIPoint : NSObject<NSCopying, NSCoding>
 
 @property (nonatomic) LIPoint_t point;
@@ -49,5 +51,8 @@ extern LIPoint_t LIPointFromString(NSString *string);
 - (instancetype)initWithPoint:(LIPoint_t)point;
 + (instancetype)pointWithPoint:(LIPoint_t)point;
 + (instancetype)pointWithX:(float)x y:(float)y z:(float)z w:(float)w;
+
+- (LIPoint *)pointWithMatrix:(LIMatrix *)transform;
+- (void)applyMatrix:(LIMatrix *)matrix;
 
 @end

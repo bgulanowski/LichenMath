@@ -7,8 +7,7 @@
 //
 
 #import "LIMatrix.h"
-
-//#import "LichenMacros.h"
+#import "LichenMath_Private.h"
 
 static NSString * const matrixKey = @"_matrix";
 
@@ -241,7 +240,7 @@ NSUInteger LIMatrixSmallestRowOrColumn( BOOL *isRow, float *m, NSUInteger n) {
     return index;
 }
 
-float LIMatrixDeterminantN(float *m, NSUInteger n) {
+NS_INLINE float LIMatrixDeterminantN(float *m, NSUInteger n) {
     
     float result = 0;
     
@@ -304,7 +303,11 @@ float LIMatrixMinor( float *m, NSUInteger row, NSUInteger column, NSUInteger n )
     return det;
 }
 
-static float *LIMatrixInverseN(float *m, NSUInteger n) {
+float LIMatrixDeterminant(LIMatrix_t m) {
+    return LIMatrixDeterminantN(m.i, 4);
+}
+
+NS_INLINE float *LIMatrixInverseN(float *m, NSUInteger n) {
     
     float *r = malloc(sizeof(float)*n*n);
     
@@ -348,6 +351,17 @@ LIMatrix_t LIMatrixFocus(LIPoint_t eye, LIPoint_t focus) {
 	m.v[2] = LIPointMake(X.z, Y.z, Z.z, 0);
 	m.v[3] = LIPointMake(-LIDotProductVectors3(X, e3), -LIDotProductVectors3(Y, e3), -LIDotProductVectors3(Z, e3), 1);
 	return m;
+}
+
+LIMatrix_t LIMatrixConcatenate(LIMatrix_t *m, LIMatrix_t *c) {
+	
+	LIMatrix_t r;
+	
+	for (NSUInteger i = 0; i < 4; ++i) {
+		LIVectorTransform(r.v[i], &(c->v[i]), m->i, 4);
+	}
+	
+	return r;
 }
 
 @implementation LIMatrix
@@ -398,6 +412,14 @@ LIMatrix_t LIMatrixFocus(LIPoint_t eye, LIPoint_t focus) {
 
 + (instancetype)matrixWithElements:(float *)elements {
 	return [self matrixWithMatrix:LIMatrixMake(elements)];
+}
+
+- (void)concatenate:(LIMatrix *)matrix {
+	_matrix = LIMatrixConcatenate(&_matrix, &(matrix->_matrix));
+}
+
+- (LIPoint *)transformPoint:(LIPoint *)point {
+	return [LIPoint pointWithPoint:LIMatrixTransformPoint(&(point->_point), &_matrix)];
 }
 
 @end
