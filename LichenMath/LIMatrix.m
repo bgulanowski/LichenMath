@@ -12,6 +12,182 @@
 
 static NSString * const matrixKey = @"_matrix";
 
+LIMatrix_t LIMatrixMakeWithYZRotation(LIPoint_t p, float angle) {
+	
+	if(LIPointIsOrigin(p)) return LIMatrixMakeWithXAxisRotation(angle);
+	
+	float b = p.y;
+	float c = p.z;
+	float sina = sine(angle);
+	float cosa = cosine(angle);
+	float ccosa = 1-cosa;
+	
+	/*	return LIMatrixMakeWithRowElements(1 + 0*cosa,      0 - 0,      0 + 0, (a*0 - 1*(0 + 0))*ccosa + (0 - 0)*sina,
+										        0 + 0, 0 + 1*cosa,   0 - sina, (b*1 - 0*(a + 0))*ccosa + (c - 0)*sina,
+										        0 - 0,   0 + sina, 0 + 1*cosa, (c*1 - 0*(a + 0))*ccosa + (b - 0)*sina,
+										            0,          0,          0,                                      1);*/
+	
+	return LIMatrixMakeWithRowElements(1,    0,     0,                0,
+									   0, cosa, -sina, b*ccosa + c*sina,
+									   0, sina,  cosa, c*ccosa + b*sina,
+									   0,    0,     0,                1);
+}
+
+LIMatrix_t LIMatrixMakeWithXZRotation(LIPoint_t p, float angle) {
+	
+	if(LIPointIsOrigin(p)) return LIMatrixMakeWithYAxisRotation(angle);
+	
+	float a = p.x;
+	float c = p.z;
+	float sina = sine(angle);
+	float cosa = cosine(angle);
+	float ccosa = 1-cosa;
+	
+	/*	return LIMatrixMakeWithRowElements(0 + 1*cosa,      0 - 0,   0 + sina, (a*1 - 0*(1 + 0))*ccosa + (0 - c)*sina,
+	 *											0 + 0, 1 + 0*cosa,      0 - 0, (b*0 - 1*(0 + 0))*ccosa + (0 - 0)*sina,
+	 *										 0 - sina,      0 + 0, 0 + 1*cosa, (c*1 - 0*(0 + 1))*ccosa + (0 - a)*sina,
+	 *												0,          0,          0,                                      1); */
+	
+	return LIMatrixMakeWithRowElements( cosa, 0, sina, a*ccosa - c*sina,
+									       0, 1,    0,                0,
+									   -sina, 0, cosa, c*ccosa - a*sina,
+									       0, 0,    0,              1);
+}
+
+LIMatrix_t LIMatrixMakeWithXYRotation(LIPoint_t p, float angle) {
+	
+	if(LIPointIsOrigin(p)) return LIMatrixMakeWithZAxisRotation(angle);
+	
+	float a = p.x;
+	float b = p.y;
+	float sina = sine(angle);
+	float cosa = cosine(angle);
+	float ccosa = 1-cosa;
+	
+	/*	return LIMatrixMakeWithRowElements(0 + 1*cosa,   0 - sina,      0 + 0, (a*1 - 0*(0 + c))*ccosa + (b - 0)*sina,
+	 *									     0 + sina, 0 + 1*cosa,      0 - 0, (b*1 - 0*(0 + c))*ccosa + (0 - a)*sina,
+	 *									        0 - 0,      0 + 0, 1 + 0*cosa, (c*0 - 1*(0 + 0))*ccosa + (0 - 0)*sina,
+	 *									            0,          0,          0,                                      1); */
+	
+	return LIMatrixMakeWithRowElements(cosa, -sina, 0, a*ccosa + b*sina,
+									   sina,  cosa, 0, b*ccosa - a*sina,
+									      0,     0, 1,                0,
+									      0,     0, 0,                1);
+}
+
+LIMatrix_t LIMatrixMakeWithVectorRotation(LIVector_t vector, float angle) {
+	
+	LIVector_t nv = LIVectorNormalize(vector);
+	
+	float u = nv.x;
+	float v = nv.y;
+	float w = nv.z;
+	
+	float uu = u*u;
+	float vv = v*v;
+	float ww = w*w;
+	
+	float uv = u*v;
+	float uw = u*w;
+	float vw = v*w;
+	
+	float sina = sine(angle);
+
+	float usina = u*sina;
+	float vsina = v*sina;
+	float wsina = w*sina;
+	
+	float cosa = cosine(angle);
+	float ccosa = 1-cosa;
+
+	float uvccosa = uv*ccosa;
+	float uwccosa = uw*ccosa;
+	float vwccosa = vw*ccosa;
+	
+	/*	return LIMatrixMakeWithRowElements(uu + vv_ww*cosa, uvccosa - wsina, uwccosa + vsina,       (0 - u*(0 + 0))*ccosa + (0 - 0)*sina,
+	 *									   uvccosa + wsina, vv + uu_ww*cosa, vwccosa - usina, (0*uu_ww - v*(0 + 0))*ccosa + (0 - 0)*sina,
+	 *									   uwccosa - vsina, vwccosa + usina, ww + uu_vv*cosa, (0*uu_vv - w*(0 + 0))*ccosa + (0 - 0)*sina,
+	 *													 0,               0,               0,                                           1); */
+	/*	return LIMatrixMakeWithRowElements(uu + vv_ww*cosa, uvccosa - wsina, uwccosa + vsina, 0,
+	 *									   uvccosa + wsina, vv + uu_ww*cosa, vwccosa - usina, 0,
+	 *									   uwccosa - vsina, vwccosa + usina, ww + uu_vv*cosa, 0,
+	 *													 0,               0,               0, 1); */
+	/*	uu + vv_ww*cosa => uu + (1-uu)*cosa => uu + cosa - uu*cosa => cosa + uu - uu*cosa => cosa + uu*(1-cosa) => cosa + uu*ccosa */
+	
+	return LIMatrixMakeWithRowElements(cosa + uu*ccosa, uvccosa - wsina, uwccosa + vsina, 0,
+									   uvccosa + wsina, cosa + vv*ccosa, vwccosa - usina, 0,
+									   uwccosa - vsina, vwccosa + usina, cosa + ww*ccosa, 0,
+									                 0,               0,               0, 1);
+}
+
+LIMatrix_t LIMatrixMakeWithArbitraryRotation(LILine axis, float angle) {
+	
+	if(angle == 0.0f) return (LIMatrix_t)LIMatrixIdentity;
+	
+	if(LIPointIsOrigin(axis.p)) return LIMatrixMakeWithVectorRotation(axis.v, angle);
+	
+	if(LIVectorIsXAligned(axis.v)) return LIMatrixMakeWithYZRotation(axis.p, angle);
+	if(LIVectorIsYAligned(axis.v)) return LIMatrixMakeWithXZRotation(axis.p, angle);
+	if(LIVectorIsZAligned(axis.v)) return LIMatrixMakeWithXYRotation(axis.p, angle);
+	
+	LIVector_t nv = LIVectorNormalize(axis.v);
+	
+	float a = axis.p.x;
+	float b = axis.p.y;
+	float c = axis.p.z;
+	
+	float u = nv.x;
+	float v = nv.y;
+	float w = nv.z;
+	
+	float uu = u*u;
+	float vv = v*v;
+	float ww = w*w;
+	
+	float uv = u*v;
+	float uw = u*w;
+	float vw = v*w;
+	
+	float uu_vv = uu + vv;
+	float uu_ww = uu + ww;
+	float vv_ww = vv + ww;
+	
+	float sina = sine(angle);
+	
+	float usina = u*sina;
+	float vsina = v*sina;
+	float wsina = w*sina;
+	
+	float cosa = cosine(angle);
+	float ccosa = 1-cosa;
+	
+	float uvccosa = uv*ccosa;
+	float uwccosa = uw*ccosa;
+	float vwccosa = vw*ccosa;
+
+	float au = a*u;
+	float av = a*v;
+	float aw = a*w;
+	float bu = b*u;
+	float bv = b*v;
+	float bw = b*w;
+	float cu = c*u;
+	float cv = c*v;
+	float cw = c*w;
+	
+	// See http://inside.mines.edu/~gmurray/ArbitraryAxisRotation/
+	
+	/* uu + vv_ww*cosa,  uvccosa - wsina,  uwccosa + vsina,  (a*vv_ww - u*(bv + cw))*ccosa + (bw - cv)*sina,
+	 * uvccosa + wsina,  vv + uu_ww*cosa,  vwccosa - usina,  (b*uu_ww - v*(au + cw))*ccosa + (cu - aw)*sina,
+	 * uwccosa - vsina,  vwccosa + usina,  ww + uu_vv*cosa,  (c*uu_vv - w*(au + bv))*ccosa + (bu - av)*sina,
+	 *               0,                0,                0,                                               1  */
+	
+	return LIMatrixMakeWithRowElements(uu + vv_ww*cosa, uvccosa - wsina, uwccosa + vsina, (a*vv_ww - u*(bv + cw))*ccosa + (bw - cv)*sina,
+									   uvccosa + wsina, vv + uu_ww*cosa, vwccosa - usina, (b*uu_ww - v*(au + cw))*ccosa + (cu - aw)*sina,
+									   uwccosa - vsina, vwccosa + usina, ww + uu_vv*cosa, (c*uu_vv - w*(au + bv))*ccosa + (bu - av)*sina,
+									                 0,               0,               0,                                              1);
+}
+
 NSString *LIMatrixToString(LIMatrix_t m) {
 	LIMatrix_t t = LIMatrixTranspose(m);
 	return [NSString stringWithFormat:@"{%@,%@,%@,%@}",

@@ -19,7 +19,7 @@
 #define cosine cosf
 #define absolute fabsf
 
-#define LIMatrixIdentity { { {1.0f, 0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 1.0f, 0.0f}, {0.0f, 0.0f, 0.0f, 1.0f} } }
+#define LIMatrixIdentity (LIMatrix_t){ { {1.0f, 0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 1.0f, 0.0f}, {0.0f, 0.0f, 0.0f, 1.0f} } }
 
 #pragma mark - types
 
@@ -38,9 +38,9 @@ typedef struct {
 #define LIVectorTransform( _v_, _a_, _m_, _c_ ) do {\
 	float *_pv_ = (float *)&_v_;\
 	float *_pa_ = (float *)&_a_;\
-		for(unsigned _i_ = 0; _i_ < _c_; ++_i_)\
-			for(unsigned _j_ = 0; _j_ < _c_; ++_j_)\
-				_pv_[_i_] += _pa_[_j_] * _m_.i[_c_*_j_ + _i_];\
+	for(unsigned _i_ = 0; _i_ < _c_; ++_i_)\
+		for(unsigned _j_ = 0; _j_ < _c_; ++_j_)\
+			_pv_[_i_] += _pa_[_j_] * _m_.i[_c_*_j_ + _i_];\
 } while(0)
 
 NS_INLINE LIPoint_t LITransformPoint(LIPoint_t a, LIMatrix_t m) {
@@ -115,118 +115,11 @@ NS_INLINE LIMatrix_t LIMatrixMakeWithZAxisRotation(float angle) {
 							           0,     0,       0, 1.0f);
 }
 
-NS_INLINE LIMatrix_t LIMatrixMakeWithYZRotation(LIPoint_t p, float angle) {
-	
-//	if(LIPointIsOrigin(p)) return LIXAxisRotationMatrix(angle);
-	
-	float b = p.y, c = p.z;
-	float cosa = cosine(angle), ccosa = 1-cosa, sina = sine(angle);
-	
-	/*	return LIMatrixMakeWithRowElements(1 + 0*cosa,      0 - 0,      0 + 0, (a*0 - 1*(0 + 0))*ccosa + (0 - 0)*sina,
-	 0 + 0, 0 + 1*cosa,   0 - sina, (b*1 - 0*(a + 0))*ccosa + (c - 0)*sina,
-	 0 - 0,   0 + sina, 0 + 1*cosa, (c*1 - 0*(a + 0))*ccosa + (b - 0)*sina,
-	 0,          0,          0,                                      1);*/
-	
-	return LIMatrixMakeWithRowElements(1,    0,     0,                0,
-									   0, cosa, -sina, b*ccosa + c*sina,
-									   0, sina,  cosa, c*ccosa + b*sina,
-									   0,    0,     0,                1);
-}
-
-NS_INLINE LIMatrix_t LIMatrixMakeWithXZRotation(LIPoint_t p, float angle) {
-	
-//	if(LIPointIsOrigin(p)) return LIYAxisRotationMatrix(angle);
-	
-	float a = p.x, c = p.z;
-	float cosa = cosine(angle), ccosa = 1-cosa, sina = sine(angle);
-	
-	/*	return LIMatrixMakeWithRowElements(0 + 1*cosa,      0 - 0,   0 + sina, (a*1 - 0*(1 + 0))*ccosa + (0 - c)*sina,
-	 0 + 0, 1 + 0*cosa,      0 - 0, (b*0 - 1*(0 + 0))*ccosa + (0 - 0)*sina,
-	 0 - sina,      0 + 0, 0 + 1*cosa, (c*1 - 0*(0 + 1))*ccosa + (0 - a)*sina,
-	 0,          0,          0,                                      1);*/
-	
-	return LIMatrixMakeWithRowElements( cosa, 0, sina, a*ccosa - c*sina,
-									       0, 1,    0,                0,
-									   -sina, 0, cosa, c*ccosa - a*sina,
-									       0, 0,    0,              1);
-}
-
-NS_INLINE LIMatrix_t LIMatrixMakeWithXYRotation(LIPoint_t p, float angle) {
-	
-//	if(LIPointIsOrigin(p)) return LIZAxisRotationMatrix(angle);
-	
-	float a = p.x, b = p.y;
-	float cosa = cosine(angle), ccosa = 1-cosa, sina = sine(angle);
-	
-	/*	return LIMatrixMakeWithRowElements(0 + 1*cosa,   0 - sina,      0 + 0, (a*1 - 0*(0 + c))*ccosa + (b - 0)*sina,
-										     0 + sina, 0 + 1*cosa,      0 - 0, (b*1 - 0*(0 + c))*ccosa + (0 - a)*sina,
-										        0 - 0,      0 + 0, 1 + 0*cosa, (c*0 - 1*(0 + 0))*ccosa + (0 - 0)*sina,
-										            0,          0,          0,                                      1);*/
-	
-	return LIMatrixMakeWithRowElements(cosa, -sina, 0, a*ccosa + b*sina,
-									   sina,  cosa, 0, b*ccosa - a*sina,
-									      0,     0, 1,                0,
-									      0,     0, 0,                1);
-}
-
-NS_INLINE LIMatrix_t LIMatrixMakeWithVectorRotation(LIVector_t vector, float angle) {
-	
-	LIVector_t nv = LIVectorNormalize(vector);
-	
-	float u = nv.x, v = nv.y, w = nv.z;
-	float uu = u*u, vv = v*v, ww = w*w, uv = u*v, uw = u*w, vw = v*w;
-	float cosa = cosine(angle), ccosa = 1-cosa, sina = sine(angle);
-	float usina = u*sina, vsina = v*sina, wsina = w*sina, uvccosa = uv*ccosa, uwccosa = uw*ccosa, vwccosa = vw*ccosa;
-	
-	/*	return LIMatrixMakeWithRowElements(uu + vv_ww*cosa, uvccosa - wsina, uwccosa + vsina,       (0 - u*(0 + 0))*ccosa + (0 - 0)*sina,
-										   uvccosa + wsina, vv + uu_ww*cosa, vwccosa - usina, (0*uu_ww - v*(0 + 0))*ccosa + (0 - 0)*sina,
-										   uwccosa - vsina, vwccosa + usina, ww + uu_vv*cosa, (0*uu_vv - w*(0 + 0))*ccosa + (0 - 0)*sina,
-														 0,               0,               0,                                          1);*/
-	/*	return LIMatrixMakeWithRowElements(uu + vv_ww*cosa, uvccosa - wsina, uwccosa + vsina, 0,
-										   uvccosa + wsina, vv + uu_ww*cosa, vwccosa - usina, 0,
-										   uwccosa - vsina, vwccosa + usina, ww + uu_vv*cosa, 0,
-										                 0,               0,               0, 1);*/
-	/*	uu + vv_ww*cosa => uu + (1-uu)*cosa => uu + cosa - uu*cosa => cosa + uu - uu*cosa => cosa + uu*(1-cosa) => cosa + uu*ccosa */
-	
-	return LIMatrixMakeWithRowElements(cosa + uu*ccosa, uvccosa - wsina, uwccosa + vsina, 0,
-									   uvccosa + wsina, cosa + vv*ccosa, vwccosa - usina, 0,
-									   uwccosa - vsina, vwccosa + usina, cosa + ww*ccosa, 0,
- 									                 0,               0,               0, 1);
-}
-
-NS_INLINE LIMatrix_t LIMatrixMakeWithArbitraryRotation(LILine axis, float angle) {
-	
-	if(angle == 0.0f) return (LIMatrix_t)LIMatrixIdentity;
-	
-	if(LIPointIsOrigin(axis.p)) return LIMatrixMakeWithVectorRotation(axis.v, angle);
-	
-	if(LIVectorIsXAligned(axis.v)) return LIMatrixMakeWithYZRotation(axis.p, angle);
-	if(LIVectorIsYAligned(axis.v)) return LIMatrixMakeWithXZRotation(axis.p, angle);
-	if(LIVectorIsZAligned(axis.v)) return LIMatrixMakeWithXYRotation(axis.p, angle);
-	
-	LIVector_t nv = LIVectorNormalize(axis.v);
-	
-	float a = axis.p.x, b = axis.p.y, c = axis.p.z, u = nv.x, v = nv.y, w = nv.z;
-	float uu = u*u, vv = v*v, ww = w*w, uv = u*v, uw = u*w, vw = v*w;
-	float uu_vv = uu + vv, uu_ww = uu + ww, vv_ww = vv + ww;
-	float cosa = cosine(angle), ccosa = 1-cosa, sina = sine(angle);
-	float usina = u*sina, vsina = v*sina, wsina = w*sina, uvccosa = uv*ccosa, uwccosa = uw*ccosa, vwccosa = vw*ccosa;
-	float au = a*u, av = a*v, aw = a*w, bu = b*u, bv = b*v, bw = b*w, cu = c*u, cv = c*v, cw = c*w;
-	
-	// See http://inside.mines.edu/~gmurray/ArbitraryAxisRotation/
-	
-	/*
-	 uu + vv_ww*cosa,  uvccosa - wsina,  uwccosa + vsina,  (a*vv_ww - u*(bv + cw))*ccosa + (bw - cv)*sina,
-	 uvccosa + wsina,  vv + uu_ww*cosa,  vwccosa - usina,  (b*uu_ww - v*(au + cw))*ccosa + (cu - aw)*sina,
-	 uwccosa - vsina,  vwccosa + usina,  ww + uu_vv*cosa,  (c*uu_vv - w*(au + bv))*ccosa + (bu - av)*sina,
-	               0,                0,                0,                                               1
-	 */
-	
-	return LIMatrixMakeWithRowElements(uu + vv_ww*cosa, uvccosa - wsina, uwccosa + vsina, (a*vv_ww - u*(bv + cw))*ccosa + (bw - cv)*sina,
-									   uvccosa + wsina, vv + uu_ww*cosa, vwccosa - usina, (b*uu_ww - v*(au + cw))*ccosa + (cu - aw)*sina,
-									   uwccosa - vsina, vwccosa + usina, ww + uu_vv*cosa, (c*uu_vv - w*(au + bv))*ccosa + (bu - av)*sina,
-									                 0,               0,               0,                                              1);
-}
+extern LIMatrix_t LIMatrixMakeWithYZRotation(LIPoint_t p, float angle);
+extern LIMatrix_t LIMatrixMakeWithXZRotation(LIPoint_t p, float angle);
+extern LIMatrix_t LIMatrixMakeWithXYRotation(LIPoint_t p, float angle);
+extern LIMatrix_t LIMatrixMakeWithVectorRotation(LIVector_t vector, float angle);
+extern LIMatrix_t LIMatrixMakeWithArbitraryRotation(LILine axis, float angle);
 
 #pragma mark - matrix operations
 
