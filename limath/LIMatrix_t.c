@@ -178,7 +178,7 @@ LIMatrix_t LIMatrixMakeWithArbitraryRotation(LILine axis, float angle) {
 	float cv = c*v;
 	float cw = c*w;
 	
-	// See http://inside.mines.edu/~gmurray/ArbitraryAxisRotation/
+	// See https://sites.google.com/site/glennmurray/Home/rotation-matrices-and-formulas
 	
 	/* uu + vv_ww*cosa,  uvccosa - wsina,  uwccosa + vsina,  (a*vv_ww - u*(bv + cw))*ccosa + (bw - cv)*sina,
 	 * uvccosa + wsina,  vv + uu_ww*cosa,  vwccosa - usina,  (b*uu_ww - v*(au + cw))*ccosa + (cu - aw)*sina,

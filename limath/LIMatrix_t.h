@@ -76,9 +76,9 @@ extern LIMatrix_t LIMatrixConcatenate(LIMatrix_t * const m, LIMatrix_t * const c
 // Normally you would want to make column-major matrices, but the Row function makes visualization easier in code
 
 static inline LIMatrix_t LIMatrixMakeWithRowElements(float a00, float a01, float a02, float a03,
-												 float a10, float a11, float a12, float a13,
-												 float a20, float a21, float a22, float a23,
-												 float a30, float a31, float a32, float a33) {
+													 float a10, float a11, float a12, float a13,
+													 float a20, float a21, float a22, float a23,
+													 float a30, float a31, float a32, float a33) {
 	LIMatrix_t m;
 	m.v[0].x = a00; m.v[0].y = a10; m.v[0].z = a20; m.v[0].w = a30;
 	m.v[1].x = a01; m.v[1].y = a11; m.v[1].z = a21; m.v[1].w = a31;
@@ -88,9 +88,9 @@ static inline LIMatrix_t LIMatrixMakeWithRowElements(float a00, float a01, float
 }
 
 static inline LIMatrix_t LIMatrixMakeWithColumnElements(float a00, float a01, float a02, float a03,
-													float a10, float a11, float a12, float a13,
-													float a20, float a21, float a22, float a23,
-													float a30, float a31, float a32, float a33) {
+														float a10, float a11, float a12, float a13,
+														float a20, float a21, float a22, float a23,
+														float a30, float a31, float a32, float a33) {
 	LIMatrix_t m;
 	m.v[0].x = a00; m.v[0].y = a01; m.v[0].z = a02; m.v[0].w = a03;
 	m.v[1].x = a10; m.v[1].y = a11; m.v[1].z = a12; m.v[1].w = a13;
@@ -107,26 +107,26 @@ static inline LIMatrix_t LIMatrixMakeWithTranslation(LIVector_t v) {
 
 static inline LIMatrix_t LIMatrixMakeWithXAxisRotation(float angle) {
 	float cosa = cosine(angle), sina = sine(angle);
-	return LIMatrixMakeWithRowElements(1.0f,    0,    0,    0,
-									   0, cosa, -sina,   0,
-									   0, sina,  cosa,   0,
-									   0,    0,    0, 1.0f);
+	return LIMatrixMakeWithRowElements(1.0f,    0,     0,    0,
+									      0, cosa, -sina,    0,
+									      0, sina,  cosa,    0,
+									      0,    0,     0, 1.0f);
 }
 
 static inline LIMatrix_t LIMatrixMakeWithYAxisRotation(float angle) {
 	float cosa = cosine(angle), sina = sine(angle);
 	return LIMatrixMakeWithRowElements( cosa,    0, sina,    0,
-									   0, 1.0f,    0,    0,
+									       0, 1.0f,    0,    0,
 									   -sina,    0, cosa,    0,
-									   0,    0,    0, 1.0f);
+									       0,    0,    0, 1.0f);
 }
 
 static inline LIMatrix_t LIMatrixMakeWithZAxisRotation(float angle) {
 	float cosa = cosine(angle), sina = sine(angle);
 	return LIMatrixMakeWithRowElements(cosa, -sina,    0,    0,
 							           sina,  cosa,    0,    0,
-							           0,     0,    1.0f,    0,
-							           0,     0,       0, 1.0f);
+							              0,     0, 1.0f,    0,
+							              0,     0,    0, 1.0f);
 }
 
 extern LIMatrix_t LIMatrixMakeWithYZRotation(LIPoint_t p, float angle);
