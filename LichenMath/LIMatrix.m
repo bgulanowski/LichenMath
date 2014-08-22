@@ -33,6 +33,8 @@ LIMatrix_t LIMatrixFromString(NSString *string) {
 
 @implementation LIMatrix
 
+- (LIMatrix_t *const)r_matrix { return &_matrix; }
+
 #pragma mark - NSCopying
 
 - (id)copyWithZone:(NSZone *)zone {
@@ -87,6 +89,20 @@ LIMatrix_t LIMatrixFromString(NSString *string) {
 
 - (LIPoint *)transformPoint:(LIPoint *)point {
 	return [LIPoint pointWithPoint:LIMatrixTransformPoint(&(point->_point), &_matrix)];
+}
+
+- (void)setValue:(float)v forElement:(intptr_t)e {
+	_matrix.i[e] = v;
+}
+
+- (float)valueForElement:(intptr_t)e {
+	return _matrix.i[e];
+}
+
+- (void)setValues:(float *)v forElements:(intptr_t *)elements count:(NSUInteger)count {
+	for (NSUInteger i=0; i<count; ++i) {
+		_matrix.i[elements[i]] = v[i];
+	}
 }
 
 @end
