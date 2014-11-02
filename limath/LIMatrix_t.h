@@ -38,11 +38,11 @@ typedef struct {
 #pragma mark - point transformation
 
 #define LIVectorTransform( _v_, _a_, _mi_, _c_ ) do {\
-float *_pv_ = (float *)&_v_;\
-float *_pa_ = (float *)_a_;\
-for(unsigned _i_ = 0; _i_ < _c_; ++_i_)\
-for(unsigned _j_ = 0; _j_ < _c_; ++_j_)\
-_pv_[_i_] += _pa_[_j_] * _mi_[_c_*_j_ + _i_];\
+	float *_pv_ = (float *)&_v_;\
+	float *_pa_ = (float *)_a_;\
+	for(unsigned _i_ = 0; _i_ < _c_; ++_i_)\
+		for(unsigned _j_ = 0; _j_ < _c_; ++_j_)\
+			_pv_[_i_] += _pa_[_j_] * _mi_[_c_*_j_ + _i_];\
 } while(0)
 
 static inline LIPoint_t LIMatrixTransformPoint(LIPoint_t * const a, LIMatrix_t * const m) {
