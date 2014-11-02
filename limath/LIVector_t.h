@@ -17,10 +17,6 @@ typedef struct {
 	float z;
 } LIVector_t;
 
-typedef struct {
-	LIVector_t v;
-	float a;
-} LIRotation_t;
 extern const LIVector_t LIVectorZero;
 
 static inline LIVector_t LIVectorMake(float x, float y, float z) {
