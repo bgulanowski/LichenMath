@@ -17,7 +17,7 @@ static NSString * const matrixKey = @"_matrix";
 
 NSString *LIMatrixToString(LIMatrix_t m) {
 	LIMatrix_t t = LIMatrixTranspose(m);
-	return [NSString stringWithFormat:@"{%@,%@,%@,%@}",
+	return [NSString stringWithFormat:@"{\n%@,\n%@,\n%@,\n%@\n}",
 			LIPointToString(t.v[0]), LIPointToString(t.v[1]), LIPointToString(t.v[2]), LIPointToString(t.v[3])];
 }
 
@@ -83,6 +83,11 @@ LIMatrix_t LIMatrixFromString(NSString *string) {
 	return [self matrixWithMatrix:LIMatrixMake(elements)];
 }
 
++ (instancetype)identity
+{
+	return [self matrixWithMatrix:LIMatrixIdentity];
+}
+
 - (void)concatenate:(LIMatrix *)matrix {
 	_matrix = LIMatrixConcatenate(&_matrix, &(matrix->_matrix));
 }
@@ -103,6 +108,10 @@ LIMatrix_t LIMatrixFromString(NSString *string) {
 	for (NSUInteger i=0; i<count; ++i) {
 		_matrix.i[elements[i]] = v[i];
 	}
+}
+
+- (NSString *)debugDescription {
+	return LIMatrixToString(_matrix);
 }
 
 @end

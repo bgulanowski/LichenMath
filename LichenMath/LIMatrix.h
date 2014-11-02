@@ -21,6 +21,7 @@ extern LIMatrix_t LIMatrixFromString(NSString *string);
 - (instancetype)initWithMatrix:(LIMatrix_t)matrix;
 + (instancetype)matrixWithMatrix:(LIMatrix_t)matrix;
 + (instancetype)matrixWithElements:(float *)elements;
++ (instancetype)identity;
 
 - (void)concatenate:(LIMatrix *)matrix;
 
