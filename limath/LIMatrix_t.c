@@ -343,7 +343,7 @@ LIMatrix_t LIMatrixFocus(LIPoint_t eye, LIPoint_t focus) {
 
 LIMatrix_t LIMatrixConcatenate(LIMatrix_t *m, LIMatrix_t *c) {
 	
-	LIMatrix_t r;
+	LIMatrix_t r = {};
 	
 	for (unsigned i = 0; i < 4; ++i) {
 		LIVectorTransform(r.v[i], &(c->v[i]), m->i, 4);
