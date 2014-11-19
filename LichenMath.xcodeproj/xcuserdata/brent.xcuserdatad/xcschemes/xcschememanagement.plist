@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>LichenMath-iOS.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
 		<key>LichenMath.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -28,6 +33,26 @@
 			<true/>
 		</dict>
 		<key>84780D7D197F353C000C3B9B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>84B8F1C01A183A17000C1AE5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>84B8F1CA1A183A17000C1AE5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>84B8F2051A183AD2000C1AE5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>84B8F20F1A183AD2000C1AE5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
