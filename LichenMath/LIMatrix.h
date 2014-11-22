@@ -10,6 +10,8 @@
 
 #import <LichenMath/LIMatrix_t.h>
 
+@class LIPoint;
+
 extern NSString *LIMatrixToString(LIMatrix_t m);
 extern LIMatrix_t LIMatrixFromString(NSString *string);
 
@@ -24,6 +26,7 @@ extern LIMatrix_t LIMatrixFromString(NSString *string);
 + (instancetype)identity;
 
 - (void)concatenate:(LIMatrix *)matrix;
+- (LIPoint *)transformPoint:(LIPoint *)point;
 
 - (void)setValue:(float)v forElement:(intptr_t)e;
 - (float)valueForElement:(intptr_t)e;
