@@ -17,9 +17,15 @@
 
 #pragma mark - macro definitions
 
+#ifndef sine
 #define sine sinf
+#endif
+#ifndef cosine
 #define cosine cosf
+#endif
+#ifndef absolute
 #define absolute fabsf
+#endif
 
 #define LIMatrixIdentity (LIMatrix_t){ { {1.0f, 0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 1.0f, 0.0f}, {0.0f, 0.0f, 0.0f, 1.0f} } }
 
