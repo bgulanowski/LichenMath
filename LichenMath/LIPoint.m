@@ -49,7 +49,8 @@ LIPoint_t LIPointFromString(NSString *string) {
 			memcpy(&_point, [aDecoder decodeBytesForKey:@"r" returnedLength:NULL], sizeof(LIPoint_t));
 		}
 		else {
-			memcpy(&_point, [aDecoder decodeBytesWithReturnedLength:NULL], sizeof(LIPoint_t));
+            NSUInteger length = 0;
+			memcpy(&_point, [aDecoder decodeBytesWithReturnedLength:&length], sizeof(LIPoint_t));
 		}
 	}
 	return self;

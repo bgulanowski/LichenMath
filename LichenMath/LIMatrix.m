@@ -50,7 +50,8 @@ LIMatrix_t LIMatrixFromString(NSString *string) {
 			memcpy(&_matrix, [aDecoder decodeBytesForKey:matrixKey returnedLength:NULL], sizeof(_matrix));
 		}
 		else {
-			memcpy(&_matrix, [aDecoder decodeBytesWithReturnedLength:NULL], sizeof(_matrix));
+            NSUInteger length = 0;
+			memcpy(&_matrix, [aDecoder decodeBytesWithReturnedLength:&length], sizeof(_matrix));
 		}
 	}
 	return self;

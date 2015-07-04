@@ -48,7 +48,8 @@ LIVector_t LIVectorFromString(NSString *s) {
 			memcpy(&_vector, [aDecoder decodeBytesForKey:vectorKey returnedLength:NULL], sizeof(_vector));
 		}
 		else {
-			memcpy(&_vector, [aDecoder decodeBytesWithReturnedLength:NULL], sizeof(_vector));
+            NSUInteger length = 0;
+			memcpy(&_vector, [aDecoder decodeBytesWithReturnedLength:&length], sizeof(_vector));
 		}
 	}
 	return self;

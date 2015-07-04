@@ -27,7 +27,8 @@ static NSString * const regionKey = @"_region";
 			memcpy(&_region, [aDecoder decodeBytesForKey:regionKey returnedLength:NULL], sizeof(_region));
 		}
 		else {
-			memcpy(&_region, [aDecoder decodeBytesWithReturnedLength:NULL], sizeof(_region));
+            NSUInteger length = 0;
+			memcpy(&_region, [aDecoder decodeBytesWithReturnedLength:&length], sizeof(_region));
 		}
 	}
 	return self;

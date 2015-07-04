@@ -47,7 +47,8 @@
 			memcpy(&_range, [aDecoder decodeBytesForKey:@"r" returnedLength:NULL], sizeof(LIRange_t));
 		}
 		else {
-			memcpy(&_range, [aDecoder decodeBytesWithReturnedLength:NULL], sizeof(LIRange_t));
+            NSUInteger length = 0;
+            memcpy(&_range, [aDecoder decodeBytesWithReturnedLength:&length], sizeof(LIRange_t));
 		}
 	}
 	return self;
