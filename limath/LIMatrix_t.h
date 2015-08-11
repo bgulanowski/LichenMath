@@ -36,11 +36,6 @@ typedef union {
 	float i[16];
 } LIMatrix_t;
 
-typedef struct {
-	LIPoint_t p;
-	LIVector_t v;
-} LILine;
-
 #pragma mark - point transformation
 
 #define LIVectorTransform( _v_, _a_, _mi_, _c_ ) do {\
@@ -139,7 +134,7 @@ extern LIMatrix_t LIMatrixMakeWithYZRotation(LIPoint_t p, float angle);
 extern LIMatrix_t LIMatrixMakeWithXZRotation(LIPoint_t p, float angle);
 extern LIMatrix_t LIMatrixMakeWithXYRotation(LIPoint_t p, float angle);
 extern LIMatrix_t LIMatrixMakeWithVectorRotation(LIVector_t vector, float angle);
-extern LIMatrix_t LIMatrixMakeWithArbitraryRotation(LILine axis, float angle);
+extern LIMatrix_t LIMatrixMakeWithArbitraryRotation(LILine_t axis, float angle);
 
 #pragma mark - matrix operations
 
