@@ -15,7 +15,9 @@
 #define VectorUnitZ { 0, 0, 1.0f }
 
 const LIVector_t LIVectorZero = VectorZero;
-
+const LIVector_t LIVectorUnitX = VectorUnitX;
+const LIVector_t LIVectorUnitY = VectorUnitY;
+const LIVector_t LIVectorUnitZ = VectorUnitZ;
 
 #define PointZero { 0, 0, 0, 0 }
 #define PointOrigin { 0, 0, 0, 1.0f }

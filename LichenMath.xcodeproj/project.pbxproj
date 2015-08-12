@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8415C9561B7A171A00D85A50 /* LIVectorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8415C9551B7A171A00D85A50 /* LIVectorTest.m */; };
 		842015E5198D233600853E68 /* LichenMath.h in Headers */ = {isa = PBXBuildFile; fileRef = 84780D77197F353C000C3B9B /* LichenMath.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84552005198D358B00571109 /* LichenMath_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 84552003198D358B00571109 /* LichenMath_Private.h */; };
 		8455200F198D446E00571109 /* liblimath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8455200B198D445000571109 /* liblimath.a */; };
@@ -22,7 +23,6 @@
 		84780D80197F353C000C3B9B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84780D7F197F353C000C3B9B /* XCTest.framework */; };
 		84780D84197F353C000C3B9B /* LichenMath.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84780D67197F353C000C3B9B /* LichenMath.framework */; };
 		84780D8A197F353C000C3B9B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84780D88197F353C000C3B9B /* InfoPlist.strings */; };
-		84780D8C197F353C000C3B9B /* LichenMathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 84780D8B197F353C000C3B9B /* LichenMathTests.m */; };
 		84780D97197F3588000C3B9B /* LIRange.h in Headers */ = {isa = PBXBuildFile; fileRef = 84780D95197F3588000C3B9B /* LIRange.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84780D98197F3588000C3B9B /* LIRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 84780D96197F3588000C3B9B /* LIRange.m */; };
 		84780D9B197F3AA7000C3B9B /* LIPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 84780D99197F3AA7000C3B9B /* LIPoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -93,6 +93,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8415C9551B7A171A00D85A50 /* LIVectorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LIVectorTest.m; sourceTree = "<group>"; };
 		84552003198D358B00571109 /* LichenMath_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LichenMath_Private.h; sourceTree = "<group>"; };
 		8455200B198D445000571109 /* liblimath.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblimath.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		84552013198D44CF00571109 /* LIVector_t.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LIVector_t.h; path = limath/LIVector_t.h; sourceTree = "<group>"; };
@@ -263,6 +264,7 @@
 			children = (
 				84780D8B197F353C000C3B9B /* LichenMathTests.m */,
 				84780D86197F353C000C3B9B /* Supporting Files */,
+				8415C9551B7A171A00D85A50 /* LIVectorTest.m */,
 			);
 			path = LichenMathTests;
 			sourceTree = "<group>";
@@ -438,7 +440,7 @@
 		84780D5E197F353C000C3B9B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Lichen Labs";
 				TargetAttributes = {
 					84780D7D197F353C000C3B9B = {
@@ -527,7 +529,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84780D8C197F353C000C3B9B /* LichenMathTests.m in Sources */,
+				8415C9561B7A171A00D85A50 /* LIVectorTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -632,6 +634,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -695,6 +698,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LichenMath/LichenMath-Prefix.pch";
 				INFOPLIST_FILE = "LichenMath/LichenMath-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lichenlabs.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
 			};
@@ -710,6 +714,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LichenMath/LichenMath-Prefix.pch";
 				INFOPLIST_FILE = "LichenMath/LichenMath-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lichenlabs.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
 			};
@@ -731,6 +736,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "LichenMathTests/LichenMathTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lichenlabs.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -749,6 +755,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LichenMath/LichenMath-Prefix.pch";
 				INFOPLIST_FILE = "LichenMathTests/LichenMathTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lichenlabs.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -813,6 +820,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lichenlabs.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = LichenMath;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -843,6 +851,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lichenlabs.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = LichenMath;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;

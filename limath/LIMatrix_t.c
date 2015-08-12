@@ -123,7 +123,7 @@ LIMatrix_t LIMatrixMakeWithVectorRotation(LIVector_t vector, float angle) {
 									                 0,               0,               0, 1);
 }
 
-LIMatrix_t LIMatrixMakeWithArbitraryRotation(LILine axis, float angle) {
+LIMatrix_t LIMatrixMakeWithArbitraryRotation(LILine_t axis, float angle) {
 	
 	if(angle == 0.0f) return (LIMatrix_t)LIMatrixIdentity;
 	
@@ -330,14 +330,14 @@ LIMatrix_t LIMatrixFocus(LIPoint_t eye, LIPoint_t focus) {
 	
 	LIVector_t e3 = LIVectorMake(eye.x - focus.x, eye.y - focus.y, eye.z - focus.z);
 	LIVector_t Z = LIVectorNormalize(e3);
-	LIVector_t X = LIVectorNormalize(LICrossProductVectors3(LIVectorMake(0, 1, 0), Z));
-	LIVector_t Y = LIVectorNormalize(LICrossProductVectors3(Z, X));
+	LIVector_t X = LIVectorNormalize(LIVectorCrossProduct(LIVectorMake(0, 1, 0), Z));
+	LIVector_t Y = LIVectorNormalize(LIVectorCrossProduct(Z, X));
 	
 	LIMatrix_t m;
 	m.v[0] = LIPointMake(X.x, Y.x, Z.x, 0);
 	m.v[1] = LIPointMake(X.y, Y.y, Z.y, 0);
 	m.v[2] = LIPointMake(X.z, Y.z, Z.z, 0);
-	m.v[3] = LIPointMake(-LIDotProductVectors3(X, e3), -LIDotProductVectors3(Y, e3), -LIDotProductVectors3(Z, e3), 1);
+	m.v[3] = LIPointMake(-LIVectorDotProduct(X, e3), -LIVectorDotProduct(Y, e3), -LIVectorDotProduct(Z, e3), 1);
 	return m;
 }
 
