@@ -231,6 +231,17 @@ NSSet *sumsOfSquares( BOOL uniques, const float max_root );
     XCTAssertEqual(1.0f, LIVectorLength(LIVectorNormalize(TEST_VECTOR)));
 }
 
+- (void)testVectorCrossProduct {
+    LIVector_t units[] = { LIVectorUnitX, LIVectorUnitY, LIVectorUnitZ };
+    for (int i=0; i<3; ++i) {
+        XCTAssertTrue(LIVectorEqualToVector(LIVectorCrossProduct(units[i%3], units[(i+1)%3]), units[(i+2)%3]));
+    }
+//    LIVector_t e = LIVectorMake(1.f, 1.f, 1.f);
+//    LIVector_t v1 =
+    LIVector_t v = LIVectorCrossProduct(LIVectorMake(1, 1, 1), LIVectorMake(-1, 1, 1));
+    LIVectorLength(v);
+}
+
 @end
 
 @implementation VectorInfo
