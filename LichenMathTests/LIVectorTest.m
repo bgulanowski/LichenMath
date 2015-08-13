@@ -16,23 +16,36 @@
 
 @end
 
-static const float LARGE_VAL = 2e24 + 9879.0f;
+static const float LARGE_VAL = 2e12 + 9879.0f;
 static const float DECIMAL_VAL = 1.0f/10.0f;
 
 static const LIVector_t TEST_VECTOR = (LIVector_t) { 0, LARGE_VAL, DECIMAL_VAL };
 
-@interface NSArray (LIVectorTest)
-- (NSString *)sumOfSquaresString;
+@interface VectorInfo : NSObject {
+@public
+    LIVector_t _vector;
+    LIVector_t _squares;
+    float _length;
+    float _square;
+}
+
+- (instancetype)initWithX:(float)x y:(float)y z:(float)z;
+
 @end
 
-@interface NSNumber (LIVectorTest)
-- (NSNumber *)square;
-- (NSNumber *)squareRoot;
-@end
+NSSet *sumsOfSquares( BOOL uniques, const float max_root );
 
-NSArray *sumsOfSquares( BOOL uniques, const float max_root );
+@implementation LIVectorTest {
+    NSSet *_vectorInfos;
+}
 
-@implementation LIVectorTest
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _vectorInfos = sumsOfSquares(YES, 32.f);
+    }
+    return self;
+}
 
 #if 0
 - (void)setUp {
@@ -170,6 +183,12 @@ NSArray *sumsOfSquares( BOOL uniques, const float max_root );
     XCTAssertTrue(LIVectorEqualToVector(LIVectorClosestAxis(TEST_VECTOR), LIVectorUnitY));
 }
 
+- (void)testVectorSortedElements {
+    LIVector_t v = LIVectorMake(3, 2, 1);
+    LIVector_t e = LIVectorMake(1, 2, 3);
+    XCTAssertTrue(LIVectorEqualToVector(LIVectorSortedElements(v), e));
+}
+
 - (void)testVectorAdd {
     LIVector_t v = LIVectorAdd(LIVectorZero, LIVectorZero);
     XCTAssertTrue(LIVectorIsZero(v))
@@ -202,132 +221,79 @@ NSArray *sumsOfSquares( BOOL uniques, const float max_root );
     XCTAssertEqual(1.0f, LIVectorLength(LIVectorUnitY));
     XCTAssertEqual(1.0f, LIVectorLength(LIVectorUnitZ));
     
-//    LIVector_t vectors[] = {
-//        { 2.f, 3.f, 6.f },
-//        { 1.f, 4.f, 8.f },
-//        
-//    };
-    
-    XCTAssertEqual(6.0f, LIVectorLength(LIVectorMake(2.0f, 4.0f, 4.0f)));
+    for (VectorInfo *vectorInfo in _vectorInfos) {
+        XCTAssertEqual(vectorInfo->_length, LIVectorLength(vectorInfo->_vector));
+    }
 }
 
-- (void)testVectorSortedElements {
-    LIVector_t v = LIVectorMake(3, 2, 1);
-    LIVector_t e = LIVectorMake(1, 2, 3);
-    XCTAssertTrue(LIVectorEqualToVector(LIVectorSortedElements(v), e));
-}
-
-//- (void)testSumsOfSquares {
-//    NSLog(@"%@", sumsOfSquares(YES, 32.f));
-//}
-
-@end
-
-@implementation NSArray (LIVectorTest)
-
-- (NSString *)sumOfSquaresString {
-    NSArray *numbers = [self sortedArrayUsingSelector:@selector(compare:)];
-    NSArray *squares = [numbers valueForKey:@"square"];
-    NSNumber *sumOfSquares = [squares valueForKeyPath:@"@sum.self"];
-    return [NSString stringWithFormat:@"%@: %@ (%@ = %@)", [sumOfSquares squareRoot], [numbers componentsJoinedByString:@", "], sumOfSquares, [squares componentsJoinedByString:@" + "]];
+- (void)testVectorNormalize {
+    XCTAssertTrue(LIVectorEqualToVector(LIVectorZero, LIVectorNormalize(LIVectorZero)));
+    XCTAssertEqual(1.0f, LIVectorLength(LIVectorNormalize(TEST_VECTOR)));
 }
 
 @end
 
-@implementation NSNumber (LIVectorTest)
-
-- (NSNumber *)square {
-    return @([self floatValue] * [self floatValue]);
-}
-
-- (NSNumber *)squareRoot {
-    return @(sqrtf([self floatValue]));
-}
-
-@end
-
-@interface Thing : NSObject {
-@public
-    LIVector_t _vector;
-    LIVector_t _squares;
-    float _length;
-    float _square;
-}
-
-- (instancetype)initWithX:(float)x y:(float)y z:(float)z;
-
-@end
-
-@implementation Thing
+@implementation VectorInfo
 
 - (NSUInteger)hash {
     return LIVectorHash(_vector);
 }
 
-- (BOOL)isEqual:(Thing *)object {
+- (BOOL)isEqual:(VectorInfo *)object {
     return object == self || (object_getClass(self) == object_getClass(object) && LIVectorEqualToVector(_vector, object->_vector));
+}
+
+- (NSComparisonResult)compare:(VectorInfo *)other
+{
+    return _length == other->_length ? NSOrderedSame : _length < other->_length ? NSOrderedAscending : NSOrderedDescending;
 }
 
 - (instancetype)initWithX:(float)x y:(float)y z:(float)z {
     self = [super init];
     if (self) {
-        _vector = LIVectorMake(x, y, z);
-        _squares = LIVectorMake(x*x, y*y, z*z);
+        _vector = LIVectorSortedElements(LIVectorMake(x, y, z));
+        _squares = LIVectorMake(_vector.x*_vector.x, _vector.y*_vector.y, _vector.z*_vector.z);
         _square = _squares.x + _squares.y + _squares.z;
         _length = sqrtf(_square);
     }
     return self;
 }
 
-- (LIVector_t)sortedElements {
-    return LIVectorSortedElements(_vector);
-}
-
-- (NSString *)sortedElementString {
-    return [NSString stringWithFormat:@"%1f, %1f, %1f", _vector.x, _vector.y, _vector.z];
-}
-
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%1f <- { %1f, %1f, %1f } -- %1f = %1f + %1f + %1f", _length, _vector.x, _vector.y, _vector.z, _square, _squares.x, _squares.y, _squares.z];
+    return [NSString stringWithFormat:@"%01.f: %1.f, %1.f, %1.f (%1.f = %1.f + %1.f + %1.f)", _length, _vector.x, _vector.y, _vector.z, _square, _squares.x, _squares.y, _squares.z];
 }
 
 @end
 
-NSArray *sumsOfSquares( BOOL uniques, const float max_root ) {
+NSSet *sumsOfSquares( BOOL uniques, const float max_root ) {
     
-    NSMutableSet *set = [NSMutableSet set];
-    NSMutableArray *strings = [NSMutableArray array];
+    NSMutableSet *vectorInfos = [NSMutableSet set];
 
     for (float root=1.0f; root<max_root; ++root) {
         float const square = root * root;
-    
-    for (float i=1.0f; i<max_root; ++i) {
-        for (float j=1.0f; j<max_root; ++j) {
-            for (float k=1.0f; k<max_root; ++k) {
-
-                if (uniques && (i == j || j == k || k == i)) {
+        
+        for (float z=1.0f; z<max_root; ++z) {
+            for (float y=1.0f; y<max_root; ++y) {
+                if (z == y) {
                     continue;
                 }
-                
-                float const sum = i*i + j*j + k*k;
-
-//                for (float root=1.0f; root<max_root; ++root) {
-//                    float const square = root * root;
-                    if (square == sum) {
-                        NSArray *numbers = @[@(i), @(j), @(k)];
-                        NSString *string = [numbers sumOfSquaresString];
-                        if (![set containsObject:string]) {
-                            [strings addObject:string];
-                        }
-                        [set addObject:string];
+                for (float x=1.0f; x<max_root; ++x) {
+                    
+                    if (uniques && (y == x || x == z)) {
+                        continue;
+                    }
+                    
+                    VectorInfo *vectorInfo = [[VectorInfo alloc] initWithX:x y:y z:z];
+                    
+                    if (square == vectorInfo->_square) {
+                        [vectorInfos addObject:vectorInfo];
                     }
                 }
-                
             }
         }
     }
     
-    return strings;
+    return vectorInfos;
 }
 
 /* initial output of above:
