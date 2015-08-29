@@ -16,8 +16,8 @@
 		8455201B198D46F300571109 /* LIMatrix_t.h in Headers */ = {isa = PBXBuildFile; fileRef = 8455201A198D46F300571109 /* LIMatrix_t.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8455201D198D472500571109 /* LIMatrix_t.c in Sources */ = {isa = PBXBuildFile; fileRef = 8455201C198D472500571109 /* LIMatrix_t.c */; };
 		8455201F198D4AEB00571109 /* LIRegion_t.h in Headers */ = {isa = PBXBuildFile; fileRef = 8455201E198D4AEB00571109 /* LIRegion_t.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		845ADD9019FB3C550034CE4C /* LIMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 845ADD8F19FB3C550034CE4C /* LIMath.m */; };
-		845ADD9119FB3CBD0034CE4C /* LIMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 845ADD8F19FB3C550034CE4C /* LIMath.m */; };
+		845ADD9019FB3C550034CE4C /* LIMath.c in Sources */ = {isa = PBXBuildFile; fileRef = 845ADD8F19FB3C550034CE4C /* LIMath.c */; };
+		845ADD9119FB3CBD0034CE4C /* LIMath.c in Sources */ = {isa = PBXBuildFile; fileRef = 845ADD8F19FB3C550034CE4C /* LIMath.c */; };
 		84780D75197F353C000C3B9B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84780D73197F353C000C3B9B /* InfoPlist.strings */; };
 		84780D79197F353C000C3B9B /* LichenMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 84780D78197F353C000C3B9B /* LichenMath.m */; };
 		84780D80197F353C000C3B9B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84780D7F197F353C000C3B9B /* XCTest.framework */; };
@@ -27,10 +27,14 @@
 		84780D98197F3588000C3B9B /* LIRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 84780D96197F3588000C3B9B /* LIRange.m */; };
 		84780D9B197F3AA7000C3B9B /* LIPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 84780D99197F3AA7000C3B9B /* LIPoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84780D9C197F3AA7000C3B9B /* LIPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 84780D9A197F3AA7000C3B9B /* LIPoint.m */; };
+		84A94ADB1B91C155006BA387 /* LILine_t.h in Headers */ = {isa = PBXBuildFile; fileRef = 84A94AD91B91C0A6006BA387 /* LILine_t.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		84A94ADC1B91C160006BA387 /* LIPlane_t.h in Headers */ = {isa = PBXBuildFile; fileRef = 84A94ADA1B91C0B2006BA387 /* LIPlane_t.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		84A94ADD1B91C162006BA387 /* LIPlane_t.h in Headers */ = {isa = PBXBuildFile; fileRef = 84A94ADA1B91C0B2006BA387 /* LIPlane_t.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		84A94ADE1B91C167006BA387 /* LILine_t.h in Headers */ = {isa = PBXBuildFile; fileRef = 84A94AD91B91C0A6006BA387 /* LILine_t.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84B2192B198221D800597F0E /* LIRegion.h in Headers */ = {isa = PBXBuildFile; fileRef = 84B21929198221D800597F0E /* LIRegion.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84B2192C198221D800597F0E /* LIRegion.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B2192A198221D800597F0E /* LIRegion.m */; };
 		84B8F1D81A183A41000C1AE5 /* LIMatrix_t.c in Sources */ = {isa = PBXBuildFile; fileRef = 8455201C198D472500571109 /* LIMatrix_t.c */; };
-		84B8F1D91A183A41000C1AE5 /* LIMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 845ADD8F19FB3C550034CE4C /* LIMath.m */; };
+		84B8F1D91A183A41000C1AE5 /* LIMath.c in Sources */ = {isa = PBXBuildFile; fileRef = 845ADD8F19FB3C550034CE4C /* LIMath.c */; };
 		84B8F2211A183AEC000C1AE5 /* liblimath-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B8F1C11A183A17000C1AE5 /* liblimath-ios.a */; };
 		84B8F2221A183AFA000C1AE5 /* LichenMath.m in Sources */ = {isa = PBXBuildFile; fileRef = 84780D78197F353C000C3B9B /* LichenMath.m */; };
 		84B8F2231A183AFA000C1AE5 /* LIMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E2922C1980DF0200064591 /* LIMatrix.m */; };
@@ -101,7 +105,7 @@
 		8455201A198D46F300571109 /* LIMatrix_t.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LIMatrix_t.h; path = limath/LIMatrix_t.h; sourceTree = "<group>"; };
 		8455201C198D472500571109 /* LIMatrix_t.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = LIMatrix_t.c; path = limath/LIMatrix_t.c; sourceTree = "<group>"; };
 		8455201E198D4AEB00571109 /* LIRegion_t.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LIRegion_t.h; path = limath/LIRegion_t.h; sourceTree = "<group>"; };
-		845ADD8F19FB3C550034CE4C /* LIMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LIMath.m; path = limath/LIMath.m; sourceTree = "<group>"; };
+		845ADD8F19FB3C550034CE4C /* LIMath.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = LIMath.c; path = limath/LIMath.c; sourceTree = "<group>"; };
 		84780D67197F353C000C3B9B /* LichenMath.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LichenMath.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84780D6D197F353C000C3B9B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		84780D72197F353C000C3B9B /* LichenMath-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LichenMath-Info.plist"; sourceTree = "<group>"; };
@@ -118,6 +122,8 @@
 		84780D96197F3588000C3B9B /* LIRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LIRange.m; sourceTree = "<group>"; };
 		84780D99197F3AA7000C3B9B /* LIPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LIPoint.h; sourceTree = "<group>"; };
 		84780D9A197F3AA7000C3B9B /* LIPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LIPoint.m; sourceTree = "<group>"; };
+		84A94AD91B91C0A6006BA387 /* LILine_t.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LILine_t.h; path = limath/LILine_t.h; sourceTree = "<group>"; };
+		84A94ADA1B91C0B2006BA387 /* LIPlane_t.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LIPlane_t.h; sourceTree = "<group>"; };
 		84B21929198221D800597F0E /* LIRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LIRegion.h; sourceTree = "<group>"; };
 		84B2192A198221D800597F0E /* LIRegion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LIRegion.m; sourceTree = "<group>"; };
 		84B8F1C11A183A17000C1AE5 /* liblimath-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "liblimath-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -177,12 +183,14 @@
 		84552010198D449200571109 /* limath */ = {
 			isa = PBXGroup;
 			children = (
-				84552013198D44CF00571109 /* LIVector_t.h */,
-				84552017198D468400571109 /* LIPoint_t.h */,
-				8455201A198D46F300571109 /* LIMatrix_t.h */,
+				84A94AD91B91C0A6006BA387 /* LILine_t.h */,
+				845ADD8F19FB3C550034CE4C /* LIMath.c */,
 				8455201C198D472500571109 /* LIMatrix_t.c */,
+				8455201A198D46F300571109 /* LIMatrix_t.h */,
+				84A94ADA1B91C0B2006BA387 /* LIPlane_t.h */,
+				84552017198D468400571109 /* LIPoint_t.h */,
 				8455201E198D4AEB00571109 /* LIRegion_t.h */,
-				845ADD8F19FB3C550034CE4C /* LIMath.m */,
+				84552013198D44CF00571109 /* LIVector_t.h */,
 			);
 			name = limath;
 			sourceTree = "<group>";
@@ -310,6 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84E292291980DC8D00064591 /* LIVector.h in Headers */,
+				84A94ADD1B91C162006BA387 /* LIPlane_t.h in Headers */,
 				84780D9B197F3AA7000C3B9B /* LIPoint.h in Headers */,
 				84E2922D1980DF0200064591 /* LIMatrix.h in Headers */,
 				8455201B198D46F300571109 /* LIMatrix_t.h in Headers */,
@@ -319,6 +328,7 @@
 				84B2192B198221D800597F0E /* LIRegion.h in Headers */,
 				84552014198D44CF00571109 /* LIVector_t.h in Headers */,
 				842015E5198D233600853E68 /* LichenMath.h in Headers */,
+				84A94ADE1B91C167006BA387 /* LILine_t.h in Headers */,
 				84552005198D358B00571109 /* LichenMath_Private.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -330,11 +340,13 @@
 				84B8F2281A183B15000C1AE5 /* LichenMath.h in Headers */,
 				84B8F2291A183B15000C1AE5 /* LIMatrix.h in Headers */,
 				84B8F22A1A183B15000C1AE5 /* LIPoint.h in Headers */,
+				84A94ADC1B91C160006BA387 /* LIPlane_t.h in Headers */,
 				84B8F22B1A183B15000C1AE5 /* LIRange.h in Headers */,
 				84B8F22C1A183B15000C1AE5 /* LIRegion.h in Headers */,
 				84B8F22D1A183B15000C1AE5 /* LIVector.h in Headers */,
 				84B8F22F1A183B28000C1AE5 /* LIVector_t.h in Headers */,
 				84B8F2301A183B28000C1AE5 /* LIPoint_t.h in Headers */,
+				84A94ADB1B91C155006BA387 /* LILine_t.h in Headers */,
 				84B8F2311A183B28000C1AE5 /* LIMatrix_t.h in Headers */,
 				84B8F2321A183B28000C1AE5 /* LIRegion_t.h in Headers */,
 				84B8F22E1A183B1C000C1AE5 /* LichenMath_Private.h in Headers */,
@@ -506,7 +518,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				845ADD9019FB3C550034CE4C /* LIMath.m in Sources */,
+				845ADD9019FB3C550034CE4C /* LIMath.c in Sources */,
 				8455201D198D472500571109 /* LIMatrix_t.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -521,7 +533,7 @@
 				84780D9C197F3AA7000C3B9B /* LIPoint.m in Sources */,
 				84780D79197F353C000C3B9B /* LichenMath.m in Sources */,
 				84E2922E1980DF0200064591 /* LIMatrix.m in Sources */,
-				845ADD9119FB3CBD0034CE4C /* LIMath.m in Sources */,
+				845ADD9119FB3CBD0034CE4C /* LIMath.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,7 +550,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84B8F1D81A183A41000C1AE5 /* LIMatrix_t.c in Sources */,
-				84B8F1D91A183A41000C1AE5 /* LIMath.m in Sources */,
+				84B8F1D91A183A41000C1AE5 /* LIMath.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,6 +9,7 @@
 #include <stdio.h>
 
 #include "LIMatrix_t.h"
+#include "LILine_t.h"
 
 #include <stdbool.h>
 #include <math.h>

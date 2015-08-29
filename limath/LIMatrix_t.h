@@ -10,6 +10,7 @@
 
 #include <LichenMath/LIPoint_t.h>
 #include <LichenMath/LIVector_t.h>
+#include <LichenMath/LILine_t.h>
 
 #include <math.h>
 

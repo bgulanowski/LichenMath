@@ -6,8 +6,10 @@
 //  Copyright (c) 2014 Lichen Labs. All rights reserved.
 //
 
-#import "LIVector_t.h"
-#import "LIPoint_t.h"
+#include "LIVector_t.h"
+#include "LIPoint_t.h"
+#include "LILine_t.h"
+#include "LIPlane_t.h"
 
 #define VectorZero { 0, 0, 0 }
 #define VectorUnitX { 1.0f, 0, 0 }
