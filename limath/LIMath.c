@@ -32,7 +32,7 @@ const LILine_t LILineXAxis = { PointZero, VectorUnitX };
 const LILine_t LILineYAxis = { PointZero, VectorUnitY };
 const LILine_t LILineZAxis = { PointZero, VectorUnitZ };
 
-const LIPlane_t LIPlaneZero = { PointZero, VectorZero, VectorZero };
-const LIPlane_t LIPlaneXY = { PointZero, VectorUnitX, VectorUnitY };
-const LIPlane_t LIPlaneYZ = { PointZero, VectorUnitY, VectorUnitZ };
-const LIPlane_t LIPlaneZX = { PointZero, VectorUnitZ, VectorUnitX };
+const LIPlanePVV_t LIPlanePVVZero = { PointZero, VectorZero, VectorZero };
+const LIPlanePVV_t LIPlanePVVXY = { PointZero, VectorUnitX, VectorUnitY };
+const LIPlanePVV_t LIPlanePVVYZ = { PointZero, VectorUnitY, VectorUnitZ };
+const LIPlanePVV_t LIPlanePVVZX = { PointZero, VectorUnitZ, VectorUnitX };

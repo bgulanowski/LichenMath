@@ -42,20 +42,6 @@ static inline bool LILineIsValid(LILine_t l) {
 // or t = (x' - x)/a = (y' - y)/b = (z' - z)/c
 // or t = (p2.x - l.p.x)/l.v.x = (p2.y - l.p.y)/l.v.y = (p2.z - l.p.z)/l.v.z
 
-// Find plane intersections
-// Equation of a plane is ax + by + cz + d = 0
-// Equation of XY plane is z = 0
-// Equation of YZ plane is x = 0
-// Equation of ZX plane is y = 0
-
-// set x' (or p2.x), y' (or p2.y) or z' (or p2.z) to 0 and solve for t
-// then use t to solve for the remaining elements of p2
-// t * l.v.x = l.p.x - p2.x --> p2.x = - (t * l.v.x) / l.p.x
-// t * l.v.y = l.p.y - p2.y --> p2.y = - (t * l.v.y) / l.p.y
-// t * l.v.z = l.p.z - p2.z --> p2.z = - (t * l.v.z) / l.p.z
-
-
-
 static inline LIPoint_t LILineXYIntercept(LILine_t l) {
     if (l.v.z == 0) {
         return LIPointZero;
@@ -121,13 +107,16 @@ static inline bool LILineParallelToLine(LILine_t l1, LILine_t l2) {
 }
 
 static inline LIPoint_t LILineLineIntersection(LILine_t l1, LILine_t l2) {
+    
+    
+    
     // FIXME: temporary
     return LIPointZero;
 }
 
 static inline bool LILineIntersectsLine(LILine_t l1, LILine_t l2) {
-    // FIXME: temporary
-    return false;
+    // is there a faster check?
+    return LIPointIsNormal(LILineLineIntersection(l1, l2));
 }
 
 static inline float LILineDistanceToLine(LILine_t l1, LILine_t l2) {
