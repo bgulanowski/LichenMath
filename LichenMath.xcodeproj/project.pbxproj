@@ -224,16 +224,8 @@
 			children = (
 				84780D6D197F353C000C3B9B /* Foundation.framework */,
 				84780D7F197F353C000C3B9B /* XCTest.framework */,
-				84780D6C197F353C000C3B9B /* Other Frameworks */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		84780D6C197F353C000C3B9B /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
 		84780D70197F353C000C3B9B /* LichenMath */ = {
