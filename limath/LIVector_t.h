@@ -71,8 +71,16 @@ static inline bool LIVectorIsZero(LIVector_t v) {
     return LIVectorEqualToVector(v, LIVectorZero);
 }
 
+static inline float LIVectorLength(LIVector_t v) {
+    return sqrtf(v.x*v.x + v.y*v.y + v.z*v.z);
+}
+
+static inline LIVector_t LIVectorScale(LIVector_t v, float s) {
+    return LIVectorMake(v.x * s, v.y * s, v.z * s);
+}
+
 static inline LIVector_t LIVectorInverse(LIVector_t v) {
-	return LIVectorMake(-v.x, -v.y, -v.z);
+    return LIVectorScale(v, -1.0f);
 }
 
 static inline LIVector_t LIVectorRotate(LIVector_t v) {
@@ -122,10 +130,6 @@ static inline LIVector_t LIVectorAdd(LIVector_t a, LIVector_t b) {
 
 static inline LIVector_t LIVectorSubtract(LIVector_t a, LIVector_t b) {
     return LIVectorMake(a.x-b.x, a.y-b.y, a.z-b.z);
-}
-
-static inline float LIVectorLength(LIVector_t v) {
-    return sqrtf(v.x*v.x + v.y*v.y + v.z*v.z);
 }
 
 static inline LIVector_t LIVectorNormalize(LIVector_t a) {
