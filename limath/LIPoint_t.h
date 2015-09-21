@@ -9,6 +9,7 @@
 #pragma once
 
 #include <LichenMath/LIVector_t.h>
+#include <LichenMath/LIMathUtilities.h>
 
 #include <stdbool.h>
 
@@ -62,4 +63,32 @@ static inline LIPoint_t LIPointFromVector(LIVector_t v, float w) {
 
 static inline bool LIPointEqualToVector(LIPoint_t p, LIVector_t v) {
     return p.w == 1.0f && p.x == v.x && p.y == p.y && p.z == p.z;
+}
+
+static inline bool LIPointBetweenPointsX(LIPoint_t p, LIPoint_t p1, LIPoint_t p2) {
+    return LIFloatBetweenFloats(p.x, p1.x, p2.x);
+}
+
+static inline bool LIPointBetweenPointsY(LIPoint_t p, LIPoint_t p1, LIPoint_t p2) {
+    return LIFloatBetweenFloats(p.y, p1.y, p2.y);
+}
+
+static inline bool LIPointBetweenPointsZ(LIPoint_t p, LIPoint_t p1, LIPoint_t p2) {
+    return LIFloatBetweenFloats(p.z, p1.z, p2.z);
+}
+
+static inline bool LIPointBetweenPointsXY(LIPoint_t p, LIPoint_t p1, LIPoint_t p2) {
+    return LIPointBetweenPointsX(p, p1, p2) && LIPointBetweenPointsY(p, p1, p2);
+}
+
+static inline bool LIPointBetweenPointsYZ(LIPoint_t p, LIPoint_t p1, LIPoint_t p2) {
+    return LIPointBetweenPointsY(p, p1, p1) && LIPointBetweenPointsZ(p, p1, p2);
+}
+
+static inline bool LIPointBetweenPointsZX(LIPoint_t p, LIPoint_t p1, LIPoint_t p2) {
+    return LIPointBetweenPointsZ(p, p1, p2) && LIPointBetweenPointsX(p, p1, p2);
+}
+
+static inline bool LIPointBetweenPoints(LIPoint_t p, LIPoint_t p1, LIPoint_t p2) {
+    return LIPointBetweenPointsX(p, p1, p2) && LIPointBetweenPointsY(p, p1, p2) && LIPointBetweenPointsZ(p, p1, p2);
 }

@@ -9,6 +9,8 @@
 #ifndef LILine_t_h
 #define LILine_t_h
 
+#import <LichenMath/LIPoint_t.h>
+
 // Parametric line
 typedef struct {
     LIPoint_t p;
@@ -42,34 +44,50 @@ static inline bool LILineIsValid(LILine_t l) {
 // or t = (x' - x)/a = (y' - y)/b = (z' - z)/c
 // or t = (p2.x - l.p.x)/l.v.x = (p2.y - l.p.y)/l.v.y = (p2.z - l.p.z)/l.v.z
 
-static inline LIPoint_t LILineXYIntercept(LILine_t l) {
+// Note that LIPointZero is a point at Infinity, *not* the Origin
+static inline LIPoint_t LILineXYIntercept(LILine_t l, float z) {
     if (l.v.z == 0) {
+        // line is parallel to XY plane
         return LIPointZero;
     }
     else {
-        float t = l.p.z / l.v.z;
-        return LIPointMake(- (t * l.v.x) / l.p.x, - (t * l.v.y) / l.p.y, 0, 1.0f);
+        float t = (z - l.p.z) / l.v.z;
+        return LIPointMake(l.p.x + t * l.v.x, l.p.y + t * l.v.y, z, 1.0f);
     }
 }
 
-static inline LIPoint_t LILineYZIntercept(LILine_t l) {
+static inline LIPoint_t LILineYZIntercept(LILine_t l, float x) {
     if (l.v.x == 0) {
+        // line is parallel to YZ plane
         return LIPointZero;
     }
     else {
-        float t = l.p.x / l.v.x;
-        return LIPointMake(0, - (t * l.v.y) / l.p.y, - (t * l.v.z) / l.p.z, 1.0f);
+        float t = (x - l.p.x) / l.v.x;
+        return LIPointMake(x, l.p.y + t * l.v.y, l.p.z + t * l.v.z, 1.0f);
     }
 }
 
-static inline LIPoint_t LILineZXIntercept(LILine_t l) {
+static inline LIPoint_t LILineZXIntercept(LILine_t l, float y) {
     if (l.v.y) {
+        // line is parallel to ZX plane
         return LIPointZero;
     }
     else {
-        float t = l.p.y / l.v.y;
-        return LIPointMake(- (t * l.v.x) / l.p.x, 0, - (t * l.v.z) / l.p.z, 1.0f);
+        float t = (y - l.p.y) / l.v.y;
+        return LIPointMake(l.p.x + t * l.v.x, y, l.p.z + t * l.v.z, 1.0f);
     }
+}
+
+static inline LIPoint_t LILineXYInterceptZ0(LILine_t l) {
+    return LILineXYIntercept(l, 0);
+}
+
+static inline LIPoint_t LILineYZInterceptX0(LILine_t l) {
+    return LILineYZIntercept(l, 0);
+}
+
+static inline LIPoint_t LILineZXInterceptY0(LILine_t l) {
+    return LILineZXIntercept(l, 0);
 }
 
 static inline LILine_t LILineNormalize(LILine_t l) {
@@ -80,15 +98,15 @@ static inline LILine_t LILineNormalize(LILine_t l) {
     else {
         switch (LIVectorDominantElement(l.v)) {
             case LIVectorElementX:
-                return LILineMake(LILineYZIntercept(l), LIVectorNormalize(l.v));
+                return LILineMake(LILineYZInterceptX0(l), LIVectorNormalize(l.v));
                 break;
                 
             case LIVectorElementY:
-                return LILineMake(LILineZXIntercept(l), LIVectorNormalize(l.v));
+                return LILineMake(LILineZXInterceptY0(l), LIVectorNormalize(l.v));
                 break;
                 
             case LIVectorElementZ:
-                return LILineMake(LILineXYIntercept(l), LIVectorNormalize(l.v));
+                return LILineMake(LILineXYInterceptZ0(l), LIVectorNormalize(l.v));
                 break;
         }
     }
