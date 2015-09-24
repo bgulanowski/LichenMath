@@ -38,49 +38,72 @@ const LIPlanePVV_t LIPlanePVVXY = { PointZero, VectorUnitX, VectorUnitY };
 const LIPlanePVV_t LIPlanePVVYZ = { PointZero, VectorUnitY, VectorUnitZ };
 const LIPlanePVV_t LIPlanePVVZX = { PointZero, VectorUnitZ, VectorUnitX };
 
-LIRegionSurfacePoint LIRegionSurfacePointZero = (LIRegionSurfacePoint){ PointZero, LIRegionBoundaryUndefined, LIRegionFaceUndefined };
-
 LIRegionLineIntersection LIRegionIntersectWithLine(LIRegion_t r, LILine_t l) {
     
-    LIRegionSurfacePoint entry = LIRegionSurfacePointZero;
-    LIRegionSurfacePoint exit  = LIRegionSurfacePointZero;
+    LIPoint_t points[2] = { LIPointZero, LIPointZero };
+    int count = 0;
     
     LIPoint_t origin = LIRegionOrigin(r);
     LIPoint_t extent = LIRegionExtent(r);
     
-    LIPoint_t xstart = LILineYZIntercept(l, origin.x);
-    LIPoint_t ystart = LILineZXIntercept(l, origin.y);
-    LIPoint_t zstart = LILineXYIntercept(l, origin.z);
+    LIPoint_t test = LILineInterceptX(l, origin.x);
+
+    /*
+     If the line passes through the origin, it will satisfy all three checks
+     for faces 0, 1, and 2; skip individual checks for faces 0, 1 and 2
+     */
     
-    if (LIPointBetweenPointsYZ(xstart, origin, extent)) {
-        entry.point = xstart;
-    }
-    else if (LIPointBetweenPointsXY(ystart, origin, extent)) {
-        entry.point = ystart;
-    }
-    else if (LIPointBetweenPointsXY(zstart, origin, extent)) {
-        entry.point = zstart;
+    if (LIPointEqualToPoint(origin, test)) {
+        points[count++] = test;
     }
     else {
-        entry.point = LIPointZero;
+        if (LIPointBetweenPointsYZ(test, origin, extent)) {
+            points[count++] = test;
+        }
+        test = LILineInterceptY(l, origin.y);
+        if (LIPointBetweenPointsZX(test, origin, extent)) {
+            points[count++] = test;
+        }
+        if (count < 2) {
+            test = LILineInterceptZ(l, origin.z);
+            if (!LIPointEqualToPoint(origin, test) && LIPointBetweenPointsXY(test, origin, extent)) {
+                points[count++] = test;
+            }
+        }
     }
     
-    LIPoint_t xend   = LILineYZIntercept(l, extent.x);
-    LIPoint_t yend   = LILineZXIntercept(l, extent.y);
-    LIPoint_t zend   = LILineXYIntercept(l, extent.z);
+    bool skip = false;
+    if (count < 2) {
+        test = LILineInterceptX(l, extent.x);
+        /*
+         If line passes through the extent, it will fail all three checks
+         for faces 3, 4 and 5; skip individual checks for faces 3, 4 and 5
+         */
+        if (LIPointEqualToPoint(test, extent)) {
+            points[count++] = test;
+            skip = true;
+        }
+        if (!skip && LIPointBetweenPointsYZ(test, origin, extent)) {
+            points[count++] = test;
+        }
+    }
+    if (!skip && count < 2) {
+        test = LILineInterceptY(l, extent.y);
+        if (LIPointBetweenPointsZX(test, origin, extent)) {
+            points[count++] = test;
+        }
+    }
+    if (!skip && count < 2) {
+        test = LILineInterceptZ(l, extent.z);
+        if (LIPointBetweenPointsXY(test, origin, extent)) {
+            points[count++] = test;
+        }
+    }
     
-    if (LIPointBetweenPointsYZ(xend, origin, extent)) {
-        exit.point = xend;
-    }
-    else if (LIPointBetweenPointsZX(yend, origin, extent)) {
-        exit.point = yend;
-    }
-    else if (LIPointBetweenPointsXY(zend, origin, extent)) {
-        exit.point = zend;
+    if (count == 2 && LILineParamX(l, points[1].x) < LILineParamX(l, points[0].x)) {
+        return (LIRegionLineIntersection){ points[1], points[0] };
     }
     else {
-        exit.point = LIPointZero;
+        return (LIRegionLineIntersection){ points[0], points[1] };
     }
-    
-    return (LIRegionLineIntersection){ entry, exit };
 }

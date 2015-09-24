@@ -30,6 +30,57 @@ typedef enum {
     
 } LIRegionVertex;
 
+/*
+typedef enum {
+    
+    LIRegionEdgeUndefined = -1,
+    LIRegionEdgeStart = LIRegionVertexCount,
+    
+    LIRegionEdgeX0X0 = LIRegionEdgeUndefined,
+    LIRegionEdgeX0X1 = LIRegionEdgeUndefined,
+    LIRegionEdgeX0Y0 = LIRegionEdgeStart + 2,
+    LIRegionEdgeX0Y1 = LIRegionEdgeStart + 3,
+    LIRegionEdgeX0Z0 = LIRegionEdgeStart + 4,
+    LIRegionEdgeX0Z1 = LIRegionEdgeStart + 5,
+    
+    LIRegionEdgeX1X0 = LIRegionEdgeUndefined, // 6
+    LIRegionEdgeX1X1 = LIRegionEdgeUndefined, // 7
+    LIRegionEdgeX1Y0 = LIRegionEdgeStart + 8,
+    LIRegionEdgeX1Y1 = LIRegionEdgeStart + 9,
+    LIRegionEdgeX1Z0 = LIRegionEdgeStart + 10,
+    LIRegionEdgeX1Z1 = LIRegionEdgeStart + 11,
+
+    LIRegionEdgeY0Y0 = LIRegionEdgeUndefined, // 12
+    LIRegionEdgeY0Y1 = LIRegionEdgeUndefined, // 13
+    LIRegionEdgeY0X0 = LIRegionEdgeX0Y0,      // 14
+    LIRegionEdgeY0X1 = LIRegionEdgeX1Y0,      // 15
+    LIRegionEdgeY0Z0 = LIRegionEdgeStart + 16,
+    LIRegionEdgeY0Z1 = LIRegionEdgeStart + 17,
+    
+    LIRegionEdgeY1X0 = LIRegionEdgeX0Y1,      // 18
+    LIRegionEdgeY1X1 = LIRegionEdgeX1Y1,      // 19
+    LIRegionEdgeY1Y0 = LIRegionEdgeUndefined, // 20
+    LIRegionEdgeY1Y1 = LIRegionEdgeUndefined, // 21
+    LIRegionEdgeY1Z0 = LIRegionEdgeStart + 22,
+    LIRegionEdgeY1Z1 = LIRegionEdgeStart + 23,
+    
+    LIRegionEdgeZ0X0 = LIRegionEdgeX0Z0,      // 24
+    LIRegionEdgeZ0X1 = LIRegionEdgeX1Z0,      // 25
+    LIRegionEdgeZ0Y0 = LIRegionEdgeY0Z0,      // 26
+    LIRegionEdgeZ0Y1 = LIRegionEdgeY1Z0,      // 27
+    LIRegionEdgeZ0Z0 = LIRegionEdgeUndefined, // 28
+    LIRegionEdgeZ0Z1 = LIRegionEdgeUndefined, // 29
+    
+    LIRegionEdgeZ1X0 = LIRegionEdgeX0Z1,      // 30
+    LIRegionEdgeZ1X1 = LIRegionEdgeX1Z1,      // 31
+    LIRegionEdgeZ1Y0 = LIRegionEdgeY0Z1,      // 32
+    LIRegionEdgeZ1Y1 = LIRegionEdgeY1Z1,      // 33
+    LIRegionEdgeZ1Z0 = LIRegionEdgeUndefined, // 34
+    LIRegionEdgeZ1Z1 = LIRegionEdgeUndefined, // 35
+    
+    LIRegionEdgeCount
+} LIRegionEdge;
+ */
 
 typedef enum {
     LIRegionEdgeUndefined = -1,
@@ -140,20 +191,8 @@ static inline bool LIPointInRegion(LIPoint_t p, LIRegion_t r) {
 #pragma mark -
 
 typedef struct {
-    LIPoint_t point;
-    LIRegionBoundary type;
-    int boundary;
-} LIRegionSurfacePoint;
-
-typedef struct {
-    LIRegionSurfacePoint entry;
-    LIRegionSurfacePoint exit;
+    LIPoint_t entry;
+    LIPoint_t exit;
 } LIRegionLineIntersection;
-
-extern LIRegionSurfacePoint LIRegionSurfacePointZero;
-
-static inline LIRegionSurfacePoint LIRegionSurfacePointMake(LIPoint_t point, LIRegionBoundary type, int boundary) {
-    return (LIRegionSurfacePoint){ .point = point, .type = type, .boundary = boundary };
-}
 
 extern LIRegionLineIntersection LIRegionIntersectWithLine(LIRegion_t r, LILine_t l);
