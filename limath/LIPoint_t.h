@@ -95,7 +95,7 @@ static inline bool LIPointBetweenPointsXY(LIPoint_t p, LIPoint_t p1, LIPoint_t p
 }
 
 static inline bool LIPointBetweenPointsYZ(LIPoint_t p, LIPoint_t p1, LIPoint_t p2) {
-    return LIPointBetweenPointsY(p, p1, p1) && LIPointBetweenPointsZ(p, p1, p2);
+    return LIPointBetweenPointsY(p, p1, p2) && LIPointBetweenPointsZ(p, p1, p2);
 }
 
 static inline bool LIPointBetweenPointsZX(LIPoint_t p, LIPoint_t p1, LIPoint_t p2) {

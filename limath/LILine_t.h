@@ -23,7 +23,7 @@ extern const LILine_t LILineYAxis;
 extern const LILine_t LILineZAxis;
 
 static inline LILine_t LILineMake(LIPoint_t p, LIVector_t v) {
-    return (LILine_t){ p, v };
+    return (LILine_t){ p, LIVectorNormalize(v) };
 }
 
 static inline bool LILineIsZero(LILine_t l) {
