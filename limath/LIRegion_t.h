@@ -95,8 +95,22 @@ typedef struct {
 	LIVolume_t volume;
 } LIRegion_t;
 
+extern const LISize_t LISizeZero;
+
 static inline LISize_t LISizeMake(float width, float height, float depth) {
 	return (LISize_t) { .w = width, .h = height, .d = depth };
+}
+
+static inline bool LISizeEqualToSize(LISize_t s1, LISize_t s2) {
+    return s1.w == s2.w && s1.h == s2.h && s1.w == s2.w;
+}
+
+static inline bool LISizeIsZero(LISize_t s) {
+    return LISizeEqualToSize(s, LISizeZero);
+}
+
+static inline bool LISizeIsEmpty(LISize_t s) {
+    return s.w <= 0 || s.h <= 0 || s.d <= 0;
 }
 
 static inline LIVector_t LIVectorFromSize(LISize_t s) {
@@ -113,6 +127,10 @@ static inline LIPoint_t LIRegionOrigin(LIRegion_t r) {
 
 static inline LIPoint_t LIRegionExtent(LIRegion_t r) {
     return LIPointTranslate(r.origin.p, LIVectorFromSize(r.volume.s));
+}
+
+static inline bool LIRegionIsEmpty(LIRegion_t r) {
+    return LISizeIsEmpty(r.volume.s);
 }
 
 static inline bool LIPointInRegion(LIPoint_t p, LIRegion_t r) {

@@ -37,6 +37,11 @@ static inline bool LIPointIsNormal(LIPoint_t p) {
     return p.w == 1.0f;
 }
 
+static inline LIPoint_t LIPointNormalize(LIPoint_t p) {
+    float invw = 1.0f/p.w;
+    return p.w == 1.0f ? p : LIPointMake(p.x*invw, p.y*invw, p.z*invw, 1.0f);
+}
+
 static inline bool LIPointEqualToPoint(LIPoint_t p1, LIPoint_t p2) {
     return p1.x == p2.x && p1.y == p2.y && p1.z == p2.z && p1.w == p2.w;
 }
@@ -63,6 +68,14 @@ static inline LIPoint_t LIPointFromVector(LIVector_t v, float w) {
 
 static inline bool LIPointEqualToVector(LIPoint_t p, LIVector_t v) {
     return p.w == 1.0f && p.x == v.x && p.y == p.y && p.z == p.z;
+}
+
+static inline LIVector_t LIPointDifference(LIPoint_t p1, LIPoint_t p2) {
+    return LIVectorSubtract(LIVectorFromPoint(LIPointNormalize(p1)), LIVectorFromPoint(LIPointNormalize(p2)));
+}
+
+static inline float LIPointDistance(LIPoint_t p1, LIPoint_t p2) {
+    return LIVectorLength(LIPointDifference(p1, p2));
 }
 
 static inline bool LIPointBetweenPointsX(LIPoint_t p, LIPoint_t p1, LIPoint_t p2) {

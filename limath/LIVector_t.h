@@ -11,6 +11,7 @@
 #include <math.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <sys/param.h>
 
 typedef struct {
 	float x;
@@ -79,6 +80,18 @@ static inline LIVector_t LIVectorScale(LIVector_t v, float s) {
     return LIVectorMake(v.x * s, v.y * s, v.z * s);
 }
 
+static inline bool LIVectorElementsEqual(LIVector_t v) {
+    return v.x == v.y && v.y == v.z;
+}
+
+static inline LIVector_t LIVectorDivide(LIVector_t v1, LIVector_t v2) {
+    return LIVectorMake(v1.x/v2.x, v1.y/v2.y, v1.z/v2.z);
+}
+
+static inline bool LIVectorParallelToVector(LIVector_t v1, LIVector_t v2) {
+    return LIVectorElementsEqual(LIVectorDivide(v1, v2));
+}
+
 static inline LIVector_t LIVectorInverse(LIVector_t v) {
     return LIVectorScale(v, -1.0f);
 }
@@ -87,17 +100,20 @@ static inline LIVector_t LIVectorRotate(LIVector_t v) {
     return LIVectorMake(v.y, v.z, v.x);
 }
 
+static inline LIVector_t LIVectorAbs(LIVector_t v) {
+    return LIVectorMake(fabsf(v.x), fabsf(v.y), fabsf(v.z));
+}
+
+static inline int LIVectorMaxElementIndex(LIVector_t v) {
+    return v.x > MAX(v.y, v.z) ? 0 : (v.y > v.z ? 1 : 2);
+}
+
+static inline float LIVectorMaxElement(LIVector_t v) {
+    return MAX(MAX(v.x, v.y), v.z);
+}
+
 static LIVectorElement LIVectorDominantElement(LIVector_t v) {
-    LIVector_t a = (LIVector_t) { fabsf(v.x), fabsf(v.y), fabsf(v.z) };
-    if (a.x > a.y && a.x > a.z) {
-        return LIVectorElementX;
-    }
-    else if (a.y > a.z) {
-        return LIVectorElementY;
-    }
-    else {
-        return LIVectorElementZ;
-    }
+    return (LIVectorElement)LIVectorMaxElementIndex(LIVectorAbs(v));
 }
 
 static inline LIVector_t LIVectorClosestAxis(LIVector_t v) {
@@ -132,22 +148,12 @@ static inline LIVector_t LIVectorSubtract(LIVector_t a, LIVector_t b) {
     return LIVectorMake(a.x-b.x, a.y-b.y, a.z-b.z);
 }
 
-static inline LIVector_t LIVectorNormalize(LIVector_t a) {
-    if (LIVectorIsZero(a)) {
-        return a;
-    }
-    else {
-        float length = LIVectorLength(a);
-        return LIVectorMake(a.x/length, a.y/length, a.z/length);
-    }
+static inline LIVector_t LIVectorNormalize(LIVector_t v) {
+    return LIVectorIsZero(v) ? v : LIVectorScale(v, 1.0f/LIVectorLength(v));
 }
 
 static inline LIVector_t LIVectorCrossProduct(LIVector_t a, LIVector_t b) {
-	LIVector_t v;
-	v.x = a.y*b.z - a.z*b.y;
-	v.y = a.z*b.x - a.x*b.z;
-	v.z = a.x*b.y - a.y*b.x;
-	return v;
+    return LIVectorMake((a.y*b.z - a.z*b.y), (a.z*b.x - a.x*b.z), (a.x*b.y - a.y*b.x));
 }
 
 static inline float LIVectorDotProduct(LIVector_t a, LIVector_t b) {
@@ -155,11 +161,7 @@ static inline float LIVectorDotProduct(LIVector_t a, LIVector_t b) {
 }
 
 static inline float LIVectorInteriorAngle(LIVector_t a, LIVector_t b) {
-    
-    a = LIVectorNormalize(a);
-    b = LIVectorNormalize(b);
-    
-    return acosf( LIVectorDotProduct(a, b) );
+    return acosf(LIVectorDotProduct(LIVectorNormalize(a), LIVectorNormalize(b)));
 }
 
 static inline bool LIVectorIsXAligned(LIVector_t v) {
