@@ -192,6 +192,14 @@ LIMatrix_t LIMatrixMakeWithArbitraryRotation(LILine_t axis, float angle) {
 									                 0,               0,               0,                                              1);
 }
 
+LIMatrix_t LIMatrixMakeWithScale(LIVector_t scale) {
+    LIMatrix_t m = LIMatrixIdentity;
+    m.v[0].x = scale.x;
+    m.v[1].y = scale.y;
+    m.v[2].z = scale.z;
+    return m;
+}
+
 unsigned LIMatrixSmallestRowOrColumn( bool *isRow, float *m, unsigned n) {
     
     unsigned index = 0;

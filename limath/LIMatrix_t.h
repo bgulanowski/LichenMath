@@ -137,6 +137,8 @@ extern LIMatrix_t LIMatrixMakeWithXYRotation(LIPoint_t p, float angle);
 extern LIMatrix_t LIMatrixMakeWithVectorRotation(LIVector_t vector, float angle);
 extern LIMatrix_t LIMatrixMakeWithArbitraryRotation(LILine_t axis, float angle);
 
+extern LIMatrix_t LIMatrixMakeWithScale(LIVector_t scale);
+
 #pragma mark - matrix operations
 
 #define LIMatrixTranspose_( _mt_, _m_, _c_ ) do {\
