@@ -10,7 +10,7 @@
 #define LIMathUtilities_h
 
 static inline bool LIFloatBetweenFloats(float v, float a, float b) {
-    return (b < a) ? (v >= a && v < b) : (v >= b && v < a);
+    return (a < b) ? (v >= a && v < b) : (v >= b && v < a);
 }
 
 #endif /* LIMathUtilities_h */

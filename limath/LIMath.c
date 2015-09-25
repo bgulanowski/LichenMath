@@ -57,16 +57,16 @@ LIRegionLineIntersection LIRegionIntersectWithLine(LIRegion_t r, LILine_t l) {
         points[count++] = test;
     }
     else {
-        if (LIPointBetweenPointsYZ(test, origin, extent)) {
+        if (!LIPointIsZero(test) && LIPointBetweenPointsYZ(test, origin, extent)) {
             points[count++] = test;
         }
         test = LILineInterceptY(l, origin.y);
-        if (LIPointBetweenPointsZX(test, origin, extent)) {
+        if (!LIPointIsZero(test) && LIPointBetweenPointsZX(test, origin, extent)) {
             points[count++] = test;
         }
         if (count < 2) {
             test = LILineInterceptZ(l, origin.z);
-            if (!LIPointEqualToPoint(origin, test) && LIPointBetweenPointsXY(test, origin, extent)) {
+            if (!LIPointIsZero(test) && LIPointBetweenPointsXY(test, origin, extent)) {
                 points[count++] = test;
             }
         }
@@ -83,24 +83,24 @@ LIRegionLineIntersection LIRegionIntersectWithLine(LIRegion_t r, LILine_t l) {
             points[count++] = test;
             skip = true;
         }
-        if (!skip && LIPointBetweenPointsYZ(test, origin, extent)) {
+        if (!skip && !LIPointIsZero(test) && LIPointBetweenPointsYZ(test, origin, extent)) {
             points[count++] = test;
         }
     }
     if (!skip && count < 2) {
         test = LILineInterceptY(l, extent.y);
-        if (LIPointBetweenPointsZX(test, origin, extent)) {
+        if (!LIPointIsZero(test) && LIPointBetweenPointsZX(test, origin, extent)) {
             points[count++] = test;
         }
     }
     if (!skip && count < 2) {
         test = LILineInterceptZ(l, extent.z);
-        if (LIPointBetweenPointsXY(test, origin, extent)) {
+        if (!LIPointIsZero(test) && LIPointBetweenPointsXY(test, origin, extent)) {
             points[count++] = test;
         }
     }
     
-    if (count == 2 && LILineParamX(l, points[1].x) < LILineParamX(l, points[0].x)) {
+    if (count == 2 && LILineParamForPoint(l, points[1]) < LILineParamForPoint(l, points[0])) {
         return (LIRegionLineIntersection){ points[1], points[0] };
     }
     else {

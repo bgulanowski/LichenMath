@@ -56,6 +56,18 @@ static inline float LILineParamZ(LILine_t l, float z) {
     return (z - l.p.z) / l.v.z;
 }
 
+static inline float LILineParamForPoint(LILine_t l, LIPoint_t p) {
+    if (l.v.x != 0) {
+        return LILineParamX(l, p.x);
+    }
+    else if (l.v.y != 0) {
+        return LILineParamY(l, p.y);
+    }
+    else {
+        return LILineParamZ(l, p.z);
+    }
+}
+
 // Note that LIPointZero is a point at Infinity, *not* the Origin
 static inline LIPoint_t LILineInterceptX(LILine_t l, float x) {
     return (l.v.x == 0) ? LIPointZero : LIPointTranslate(l.p, LIVectorScale(l.v, LILineParamX(l, x)));
