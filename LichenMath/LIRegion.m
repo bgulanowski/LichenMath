@@ -8,7 +8,25 @@
 
 #import "LIRegion.h"
 
+#import "LIPoint.h"
+#import "LIVector.h"
+
 static NSString * const regionKey = @"_region";
+
+NSString *LIRegionToString(LIRegion_t region) {
+    NSString *o = LIPointToString(region.origin.p);
+    NSString *v = LIVectorToString(LIVectorFromSize(region.volume.s));
+    return [NSString stringWithFormat:@"{%@,%@}", o, v];
+}
+
+LIRegion_t LIRegionFromString(NSString *string) {
+    LIRegion_t r;
+    NSRange range = NSMakeRange(1, string.length - 2);
+    NSArray *comps = [[string substringWithRange:range] componentsSeparatedByString:@","];
+    r.origin.p = LIPointFromString(comps[0]);
+    r.volume.s = LIVectorToSize(LIVectorFromString(comps[1]));
+    return r;
+}
 
 @implementation LIRegion
 
@@ -63,6 +81,10 @@ static NSString * const regionKey = @"_region";
 
 + (instancetype)regionWithX:(float)x y:(float)y z:(float)z width:(float)width height:(float)height depth:(float)depth {
 	return [self regionWithRegion:LIRegionMake(x, y, z, width, height, depth)];
+}
+
+- (NSString *)debugDescription {
+    return LIRegionToString(_region);
 }
 
 @end

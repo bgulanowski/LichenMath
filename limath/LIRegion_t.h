@@ -168,6 +168,10 @@ static inline LIVector_t LIVectorFromSize(LISize_t s) {
     return LIVectorMake(s.w, s.h, s.d);
 }
 
+static inline LISize_t LIVectorToSize(LIVector_t v) {
+    return LISizeMake(v.x, v.y, v.z);
+}
+
 static inline LIRegion_t LIRegionMake(float x, float y, float z, float width, float height, float depth) {
 	return (LIRegion_t) { .origin.p = LIPointMake(x, y, z, 1), .volume.s = LISizeMake(width, height, depth) };
 }

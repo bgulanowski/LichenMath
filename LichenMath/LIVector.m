@@ -82,4 +82,8 @@ LIVector_t LIVectorFromString(NSString *s) {
 	return [self vectorWithVector:LIVectorMake(x, y, z)];
 }
 
+- (NSString *)debugDescription {
+    return LIVectorToString(_vector);
+}
+
 @end

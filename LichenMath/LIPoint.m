@@ -81,4 +81,8 @@ LIPoint_t LIPointFromString(NSString *string) {
 	_point = LIMatrixTransformPoint(&(_point), &(matrix->_matrix));
 }
 
+- (NSString *)debugDescription {
+    return LIPointToString(_point);
+}
+
 @end
