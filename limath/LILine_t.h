@@ -68,17 +68,21 @@ static inline float LILineParamForPoint(LILine_t l, LIPoint_t p) {
     }
 }
 
+static inline LIPoint_t LILinePointForParameter(LILine_t l, float t) {
+    return LIPointTranslate(l.p, LIVectorScale(l.v, t));
+}
+
 // Note that LIPointZero is a point at Infinity, *not* the Origin
 static inline LIPoint_t LILineInterceptX(LILine_t l, float x) {
-    return (l.v.x == 0) ? LIPointZero : LIPointTranslate(l.p, LIVectorScale(l.v, LILineParamX(l, x)));
+    return (l.v.x == 0) ? LIPointZero : LILinePointForParameter(l, LILineParamX(l, x));
 }
 
 static inline LIPoint_t LILineInterceptY(LILine_t l, float y) {
-    return (l.v.y == 0) ? LIPointZero : LIPointTranslate(l.p, LIVectorScale(l.v, LILineParamY(l, y)));
+    return (l.v.y == 0) ? LIPointZero : LILinePointForParameter(l, LILineParamY(l, y));
 }
 
 static inline LIPoint_t LILineInterceptZ(LILine_t l, float z) {
-    return (l.v.z == 0) ? LIPointZero : LIPointTranslate(l.p, LIVectorScale(l.v, LILineParamZ(l, z)));
+    return (l.v.z == 0) ? LIPointZero : LILinePointForParameter(l, LILineParamZ(l, z));
 }
 
 static inline LIPoint_t LILineInterceptX0(LILine_t l) {
@@ -127,12 +131,116 @@ static inline bool LILineParallelToLine(LILine_t l1, LILine_t l2) {
     return LIVectorEqualToVector(lv1n, lv2n) || LIVectorEqualToVector(lv1n, LIVectorInverse(lv2n));
 }
 
+
+// Line-Line Intersections
+
+// project lines onto an orthogonal plane and substitute one equation into the other
+// plane must not be perpendicular to either line
+
+// x' = x + ta, y' = y + tb, z' = z + tc
+// aka
+// x  = x1 + t1 * a1, y = y1 + t1 * b1, z = z1 + t1 * c1, and
+// x  = x2 + t2 * a2, y = y2 + t2 * b2, z = z2 + t2 * c2
+
+// if one line is parallel to the X axis (or nearly so),
+// project against Y-Z plane:
+// y1 + t1 * b1 = y2 + t2 * b2, and
+// z1 + t1 * c1 = z2 + t2 * c2
+
+// isolate t2 in second eq'n:
+// z1 + t1 * c1 = z2 + t2 * c2
+// t2 * c2 = z1 + t1 * c1 - z2
+// t2 = (z1 + t1 * c1 - z2)/c2 (1)
+
+// substitute t2 into fist eq'n
+// y1 + t1 * b1 = y2 + t2 * b2
+// t1 * b1 = y2 + t2 * b2 - y1
+
+// t1 * b1 = y2 + ((z1  + t1 * c1  - z2) /c2) * b2 - y1
+// t1 * b1 = y2 +  (z1  + t1 * c1  - z2) /c2  * b2 - y1
+// t1 * b1 = y2 +  (z1 + (t1 * c1) - z2) /c2  * b2 - y1
+
+// t1 * b1 = y2 + ((t1 * c1)    +  z1 - z2) /c2  * b2 - y1
+// t1 * b1 = y2 + ((t1 * c1)    + (z1 - z2))/c2  * b2 - y1
+// t1 * b1 = y2 +  (t1 * c1)/c2 + (z1 - z2) /c2  * b2 - y1
+
+// t1 * b1 - (t1 * c1)/c2 =  y2 + (z1 - z2)/c2 * b2 - y1
+// t1 *      (b1 - c1/c2) =  y2 + (z1 - z2)/c2 * b2 - y1
+// t1                     = (y2 + (z1 - z2)/c2 * b2 - y1)/(b1 - c1/c2)
+// then, substitute calculated value of t1 into (1) to get t2
+// finally, calculate intersection point using t1 and t2 and parametric eq'ns of the lines
+
+// if one line is parallel to the Y axis (or nearly so),
+// project against Z-X plane:
+// ... cycle x -> y, y -> z, z -> x, a -> b, b -> c, c-> a
+// t1 = (z2 + (x1 - x2)/a2 * c2 - z1)/(c1 - a1/a2)
+// t2 = (x1 + t1 * a1 - x2)/a2
+
+// if one line is parallel to the Z axis (or nearly so),
+// project against the X-Y plane:
+// t1 = (x2 + (y1 - y2)/b2 * a2 - x1)/(a1 - b1/b2)
+// t2 = (y1 + t1 * b1 - y2)/b2
+
+
+typedef struct {
+    float t1;
+    float t2;
+} LILineParametersPair;
+
+static float LILineLineIntersectionParameterX(LILine_t l1, LILine_t l2) {
+    // t1 = (y2 + (z1 - z2)/c2 * b2 - y1)/(b1 - c1/c2)
+    return (l2.p.y + (l1.p.z - l2.p.z)/l2.v.z * l2.v.y - l1.p.y)/(l1.v.y - l1.v.z/l2.v.z);
+}
+
+static float LILineLineIntersectionParameterY(LILine_t l1, LILine_t l2) {
+    // t1 = (z2 + (x1 - x2)/a2 * c2 - z1)/(c1 - a1/a2)
+    return (l2.p.z + (l1.p.x - l2.p.x)/l2.v.x * l2.v.z - l1.p.z)/(l1.v.z - l1.v.x/l2.v.x);
+}
+
+static float LILineLineIntersectionParameterZ(LILine_t l1, LILine_t l2) {
+    // t1 = (x2 + (y1 - y2)/b2 * a2 - x1)/(a1 - b1/b2)
+    return (l2.p.x + (l1.p.y - l2.p.y)/l2.v.y * l2.v.x - l1.p.x)/(l1.v.x - l1.v.y/l2.v.y);
+}
+
+static inline LILineParametersPair LILineLineIntersectionParametersX(LILine_t l1, LILine_t l2) {
+    // t2 = (z1 + t1 * c1 - z2)/c2
+    float t1 = LILineLineIntersectionParameterX(l1, l2);
+    float t2 = (l1.p.z + t1 * l1.v.z - l2.p.z)/l2.v.z;
+    return (LILineParametersPair) { t1, t2 };
+}
+
+static inline LILineParametersPair LILineLineIntersectionParametersY(LILine_t l1, LILine_t l2) {
+    // t2 = (x1 + t1 * a1 - x2)/a2
+    float t1 = LILineLineIntersectionParameterY(l1, l2);
+    float t2 = (l1.p.x + t1 * l1.v.x - l2.p.x)/l2.v.x;
+    return (LILineParametersPair){ t1, t2 };
+}
+
+static inline LILineParametersPair LILineLineIntersectionParametersZ(LILine_t l1, LILine_t l2) {
+    // t2 = (y1 + t1 * b1 - y2)/b2
+    float t1 = LILineLineIntersectionParameterZ(l1, l2);
+    float t2 = (l1.p.y + t1 * l1.v.y - l2.p.y)/l2.v.y;
+    return (LILineParametersPair){ t1, t2 };
+}
+
 static inline LIPoint_t LILineLineIntersection(LILine_t l1, LILine_t l2) {
     
+    // if both lines are parallel, there is no solution
+    LIVector_t x = LIVectorCrossProduct(l1.v, l2.v);
+    if (LIVectorIsZero(x)) {
+        return LIPointZero;
+    }
     
-    
-    // FIXME: temporary
-    return LIPointZero;
+    int axis = LIVectorMaxElementIndex(x);
+    switch (axis) {
+        case 0:
+            return LILinePointForParameter(l1, LILineLineIntersectionParameterX(l1, l2));
+        case 1:
+            return LILinePointForParameter(l1, LILineLineIntersectionParameterY(l1, l2));
+        case 2:
+        default:
+            return LILinePointForParameter(l1, LILineLineIntersectionParameterZ(l1, l2));
+    }
 }
 
 static inline bool LILineIntersectsLine(LILine_t l1, LILine_t l2) {

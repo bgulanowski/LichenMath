@@ -8,27 +8,35 @@
 
 #import <XCTest/XCTest.h>
 
+#import "LIMathUtilities.h"
+#import "LILine_t.h"
+
 @interface LichenMathTests : XCTestCase
 
 @end
 
 @implementation LichenMathTests
 
-- (void)setUp
-{
-    [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+- (void)testFloatBetweenFloats {
+    
+    XCTAssertFalse(LIFloatBetweenFloats(0, 0, 0), @"Zero between zero and zero");
+    XCTAssertTrue(LIFloatBetweenFloats(0, 0, 1.0f), @"Zero not between zero and one");
+    XCTAssertTrue(LIFloatBetweenFloats(0, 1.0f, 0), @"Zero not between one and zero (reversed)");
+    XCTAssertFalse(LIFloatBetweenFloats(1.0f, 0, 1.0f), @"One between zero and one (exclusive)");
 }
 
-- (void)tearDown
-{
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
-}
+- (void)testFloatAlign {
+    
+    NSLog(@"Test align unit: %f; inverse: %f", ALIGN_UNIT, ALIGN_UNIT_INV);
+    XCTAssertEqual(1.0/ALIGN_UNIT, ALIGN_UNIT_INV, @"Align unit inverse is not inverse of align unit");
 
-- (void)testExample
-{
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    float f = 1.0f;
+    
+    for (int i=0; i<32; ++i) {
+        float r = LIFloatAlign(f);
+        XCTAssertTrue(r >= ALIGN_UNIT_INV || r == 0.0, @"Failed: f->r: %f -> %f", f, r);
+        f *= 0.5f;
+    }
 }
 
 @end
