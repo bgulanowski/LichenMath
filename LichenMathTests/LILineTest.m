@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 
 #import "LILine_t.h"
+#import "LIPoint.h"
 
 @interface LILineTest : XCTestCase
 
@@ -42,6 +43,7 @@
 
 - (void)testLILineLineIntersection {
     
+    // test the co-ordinate axes intersection at the origin
     LILine_t l1 = LILineMake(LIPointOrigin, LIVectorUnitX);
     LILine_t l2 = LILineMake(LIPointOrigin, LIVectorUnitY);
     LILine_t l3 = LILineMake(LIPointOrigin, LIVectorUnitZ);
@@ -50,13 +52,22 @@
     XCTAssertTrue(LIPointEqualToPoint(LIPointOrigin, LILineLineIntersection(l2, l3)));
     XCTAssertTrue(LIPointEqualToPoint(LIPointOrigin, LILineLineIntersection(l3, l1)));
     
-    l1 = LILineMake(LIPointTranslate(LIPointOrigin, LIVectorUnitX), LIVectorUnitX);
-    l2 = LILineMake(LIPointTranslate(LIPointOrigin, LIVectorUnitY), LIVectorUnitY);
-    l3 = LILineMake(LIPointTranslate(LIPointOrigin, LIVectorUnitZ), LIVectorUnitZ);
+    // redefine the co-ordinate axes with offset points and scaled vectors
+    l1 = LILineMake(LIPointTranslate(LIPointOrigin, LIVectorUnitX), LIVectorScale(LIVectorUnitX, 2.0f));
+    l2 = LILineMake(LIPointTranslate(LIPointOrigin, LIVectorUnitY), LIVectorScale(LIVectorUnitY, -1.0f));
+    l3 = LILineMake(LIPointTranslate(LIPointOrigin, LIVectorUnitZ), LIVectorScale(LIVectorUnitZ, 0.5f));
     
-    XCTAssertTrue(LIPointEqualToPoint(LIPointOrigin, LILineLineIntersection(l1, l2)));
-    XCTAssertTrue(LIPointEqualToPoint(LIPointOrigin, LILineLineIntersection(l2, l3)));
-    XCTAssertTrue(LIPointEqualToPoint(LIPointOrigin, LILineLineIntersection(l3, l1)));    
+    LIPoint_t p = LILineLineIntersection(l1, l2);
+    XCTAssertTrue(LIPointEqualToPoint(LIPointOrigin, p), @"%@ != %@", LIPointToString(LIPointOrigin), LIPointToString(p));
+    p = LILineLineIntersection(l2, l3);
+    XCTAssertTrue(LIPointEqualToPoint(LIPointOrigin, p), @"%@ != %@", LIPointToString(LIPointOrigin), LIPointToString(p));
+    p = LILineLineIntersection(l3, l1);
+    XCTAssertTrue(LIPointEqualToPoint(LIPointOrigin, p), @"%@ != %@", LIPointToString(LIPointOrigin), LIPointToString(p));
+    
+    // test for parallel lines
+    l1 = LILineMake(LIPointOrigin, LIVectorUnitX);
+    l2 = LILineMake(LIPointTranslate(LIPointOrigin, LIVectorMake(1, 1, 1)), LIVectorUnitX);
+    XCTAssertTrue(LIPointEqualToPoint(LIPointZero, LILineLineIntersection(l1, l2)));
 }
 
 @end

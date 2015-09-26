@@ -152,7 +152,7 @@ static inline bool LILineParallelToLine(LILine_t l1, LILine_t l2) {
 // t2 * c2 = z1 + t1 * c1 - z2
 // t2 = (z1 + t1 * c1 - z2)/c2 (1)
 
-// substitute t2 into fist eq'n
+// substitute t2 into first eq'n
 // y1 + t1 * b1 = y2 + t2 * b2
 // t1 * b1 = y2 + t2 * b2 - y1
 
@@ -231,14 +231,13 @@ static inline LIPoint_t LILineLineIntersection(LILine_t l1, LILine_t l2) {
         return LIPointZero;
     }
     
-    int axis = LIVectorMaxElementIndex(x);
+    LIVectorElement axis = LIVectorDominantElement(x);
     switch (axis) {
-        case 0:
+        case LIVectorElementX:
             return LILinePointForParameter(l1, LILineLineIntersectionParameterX(l1, l2));
-        case 1:
+        case LIVectorElementY:
             return LILinePointForParameter(l1, LILineLineIntersectionParameterY(l1, l2));
-        case 2:
-        default:
+        case LIVectorElementZ:
             return LILinePointForParameter(l1, LILineLineIntersectionParameterZ(l1, l2));
     }
 }
