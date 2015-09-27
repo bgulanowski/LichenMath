@@ -37,6 +37,23 @@ typedef union {
 	float i[16];
 } LIMatrix_t;
 
+typedef struct {
+    unsigned int row;
+    unsigned int col;
+} LIMatrixEntry_t;
+
+static inline LIMatrixEntry_t LIMatrixEntryMake(unsigned int row, unsigned int col) {
+    return (LIMatrixEntry_t){ .row = row, .col = col };
+}
+
+static inline unsigned int LIMatrixEntryToElementIndex(LIMatrixEntry_t e) {
+    return e.row * 4 + e.col;
+}
+
+static inline LIMatrixEntry_t LIMatrixEntryFromElementIndex(unsigned int i) {
+    return LIMatrixEntryMake(i%4, i/4);
+}
+
 #pragma mark - point transformation
 
 #define LIVectorTransform( _v_, _a_, _mi_, _c_ ) do {\
@@ -71,6 +88,31 @@ static inline void LIMatrixInit(LIMatrix_t *m, float elements[16]) {
 }
 
 #pragma mark - matrix operations
+
+static inline void LIMatrixSetElement(LIMatrix_t *m, unsigned int e, float f) {
+    m->i[e] = f;
+}
+
+static inline float LIMatrixGetElement(LIMatrix_t * const m, unsigned int e) {
+    return m->i[e];
+}
+
+static inline void LIMatrixSetEntry(LIMatrix_t *m, LIMatrixEntry_t e, float f) {
+    LIMatrixSetElement(m, LIMatrixEntryToElementIndex(e), f);
+}
+
+static inline float LIMatrixGetEntry(LIMatrix_t * const m, LIMatrixEntry_t e) {
+    return LIMatrixGetElement(m, LIMatrixEntryToElementIndex(e));
+}
+
+static inline bool LIMatrixEqualToMatrix(LIMatrix_t * const m1, LIMatrix_t * const m2) {
+    for (unsigned i=0; i<16; ++i) {
+        if (m1->i[i] != m2->i[i]) {
+            return false;
+        }
+    }
+    return true;
+}
 
 extern LIMatrix_t LIMatrixConcatenate(LIMatrix_t * const m, LIMatrix_t * const c);
 

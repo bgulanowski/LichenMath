@@ -58,6 +58,15 @@ static inline LIPoint_t LIPointScale(LIPoint_t p, float s) {
     return LIPointMake(p.x*s, p.y*s, p.z*s, 1.0f);
 }
 
+static inline LIPoint_t LIPointMap(LIPoint_t p, float(^block)(float e)) {
+    p.x = block(p.x); p.y = block(p.y); p.z = block(p.z);
+    return p;
+}
+
+static inline LIPoint_t LIPointAlign(LIPoint_t p) {
+    return LIPointMake(LIFloatAlign(p.x), LIFloatAlign(p.y), LIFloatAlign(p.z), p.w);
+}
+
 static inline LIVector_t LIVectorFromPoint(LIPoint_t p) {
     return LIVectorMake(p.x, p.y, p.z);
 }

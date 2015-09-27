@@ -12,6 +12,9 @@
 
 @class LIPoint;
 
+extern NSString *LIMatrixEntryToString(LIMatrixEntry_t e);
+extern LIMatrixEntry_t LIMatrixEntryFromString(NSString *string);
+
 extern NSString *LIMatrixToString(LIMatrix_t m);
 extern LIMatrix_t LIMatrixFromString(NSString *string);
 

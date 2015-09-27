@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 
 #import "LIPoint.h"
+#import "LIVector.h"
 
 @interface LIPointTest : XCTestCase
 
@@ -80,6 +81,19 @@
     XCTAssertTrue(LIPointEqualToPoint(p, LIPointOrigin));
 }
 
-
+- (void)testLIPointAlign {
+    
+    LIPoint_t p = LIPointMake(0.1f, -0.000125f, M_PI_4 * 2e20, 1.0f);
+    LIPoint_t a = LIPointAlign(p);
+    LIVector_t v = LIVectorSubtract(LIVectorFromPoint(p), LIVectorFromPoint(a));
+    
+    XCTAssertFalse(LIVectorIsZero(v), @"remainders should not all be zero: %@", LIVectorToString(v));
+    
+    float const scale = (float)0x1p+20;
+    LIPoint_t r = LIPointMap(a, ^(float e) { return truncf(e * scale) - e * scale; });
+    v = LIVectorFromPoint(r);
+    
+    XCTAssertTrue(LIVectorIsZero(v), @"remainders should all be zero: %@", LIVectorToString(v));
+}
 
 @end

@@ -15,6 +15,15 @@
 
 static NSString * const matrixKey = @"_matrix";
 
+NSString *LIMatrixEntryToString(LIMatrixEntry_t e) {
+    return [NSString stringWithFormat:@"[%i:%i]", e.row, e.col];
+}
+
+LIMatrixEntry_t LIMatrixEntryFromString(NSString *string) {
+    NSArray *comps = [[string substringWithRange:NSMakeRange(1, string.length-2)] componentsSeparatedByString:@":"];   
+    return LIMatrixEntryMake([comps[0] intValue], [comps[1] intValue]);
+}
+
 NSString *LIMatrixToString(LIMatrix_t m) {
 	LIMatrix_t t = LIMatrixTranspose(m);
 	return [NSString stringWithFormat:@"{\n%@,\n%@,\n%@,\n%@\n}",

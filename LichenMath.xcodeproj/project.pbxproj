@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8415C9561B7A171A00D85A50 /* LIVectorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8415C9551B7A171A00D85A50 /* LIVectorTest.m */; };
 		842015E5198D233600853E68 /* LichenMath.h in Headers */ = {isa = PBXBuildFile; fileRef = 84780D77197F353C000C3B9B /* LichenMath.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		842DBA6D1BB819A300072D46 /* LIMatrixTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 842DBA6C1BB819A300072D46 /* LIMatrixTest.m */; settings = {ASSET_TAGS = (); }; };
 		84552005198D358B00571109 /* LichenMath_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 84552003198D358B00571109 /* LichenMath_Private.h */; };
 		8455200F198D446E00571109 /* liblimath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8455200B198D445000571109 /* liblimath.a */; };
 		84552014198D44CF00571109 /* LIVector_t.h in Headers */ = {isa = PBXBuildFile; fileRef = 84552013198D44CF00571109 /* LIVector_t.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -105,6 +106,7 @@
 
 /* Begin PBXFileReference section */
 		8415C9551B7A171A00D85A50 /* LIVectorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LIVectorTest.m; sourceTree = "<group>"; };
+		842DBA6C1BB819A300072D46 /* LIMatrixTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LIMatrixTest.m; sourceTree = "<group>"; };
 		84552003198D358B00571109 /* LichenMath_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LichenMath_Private.h; sourceTree = "<group>"; };
 		8455200B198D445000571109 /* liblimath.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblimath.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		84552013198D44CF00571109 /* LIVector_t.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LIVector_t.h; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 				8415C9551B7A171A00D85A50 /* LIVectorTest.m */,
 				84FB383E1BB6D6B000A9FCEE /* LIPointTest.m */,
 				84FB38401BB6E1FB00A9FCEE /* LILineTest.m */,
+				842DBA6C1BB819A300072D46 /* LIMatrixTest.m */,
 			);
 			path = LichenMathTests;
 			sourceTree = "<group>";
@@ -555,6 +558,7 @@
 			files = (
 				84FB38411BB6E1FB00A9FCEE /* LILineTest.m in Sources */,
 				84FB383D1BB5FA0A00A9FCEE /* LichenMathTests.m in Sources */,
+				842DBA6D1BB819A300072D46 /* LIMatrixTest.m in Sources */,
 				84FB383F1BB6D6B000A9FCEE /* LIPointTest.m in Sources */,
 				8415C9561B7A171A00D85A50 /* LIVectorTest.m in Sources */,
 			);
