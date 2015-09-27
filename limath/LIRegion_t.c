@@ -23,13 +23,13 @@ LIRegionLineIntersection LIRegionIntersectWithLine(LIRegion_t r, LILine_t l) {
      for faces 0, 1, and 2; skip individual checks for faces 0, 1 and 2
      */
     
-    if (LIPointEqualToPoint(origin, test)) {
+    bool skip = false;
+    if (!LIPointIsZero(test) && LIPointBetweenPointsYZ(test, origin, extent)) {
         points[count++] = test;
+        // if we're on a leading axis-aligned edge, avoid counting same point twice
+        skip = LIPointEqualToPoint2D(test, origin);
     }
-    else {
-        if (!LIPointIsZero(test) && LIPointBetweenPointsYZ(test, origin, extent)) {
-            points[count++] = test;
-        }
+    if (!skip) {
         test = LILineInterceptY(l, origin.y);
         if (!LIPointIsZero(test) && LIPointBetweenPointsZX(test, origin, extent)) {
             points[count++] = test;
@@ -42,14 +42,14 @@ LIRegionLineIntersection LIRegionIntersectWithLine(LIRegion_t r, LILine_t l) {
         }
     }
     
-    bool skip = false;
+    skip = false;
     if (count < 2) {
         test = LIPointAlign(LILineInterceptX(l, extent.x));
         /*
-         If line passes through the extent, it will fail all three checks
-         for faces 3, 4 and 5; skip individual checks for faces 3, 4 and 5
+         If line passes through trailing axis-aligned edge, it will fail all three checks
+         for faces 3, 4 and 5; skip those checks
          */
-        if (LIPointEqualToPoint(test, extent)) {
+        if (LIPointEqualToPoint2D(test, extent)) {
             points[count++] = test;
             skip = true;
         }

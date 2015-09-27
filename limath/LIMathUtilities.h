@@ -10,10 +10,10 @@
 #define LIMathUtilities_h
 
 #ifndef ALIGN_UNIT
-#define ALIGN_UNIT 0x1p+20
+#define ALIGN_UNIT 0x1p+16
 #endif
 #ifndef ALIGN_UNIT_INV
-#define ALIGN_UNIT_INV 0x1p-20
+#define ALIGN_UNIT_INV 0x1p-16
 #endif
 
 static inline bool LIFloatBetweenFloats(float v, float a, float b) {
