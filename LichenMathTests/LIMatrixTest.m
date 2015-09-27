@@ -151,11 +151,43 @@
 
 - (void)testLIMatrixFocus {
     
-    LIMatrix_t m = LIMatrixFocus(LIPointOrigin, nz);
-    NSLog(@"m: %@", LIMatrixToString(m));
+    LIMatrix_t m = LIMatrixFocus(LIPointOrigin, z);
+    LIPoint_t f = LIPointOrigin;
+    LIPoint_t e = LIPointOrigin;
+    LIPoint_t a = LIPointAlign(LIMatrixTransformPoint(&f, &m));
+    XCTAssertTrue(LIPointEqualToPoint(a, e), @"Failed to transform point: %@", LIPointToString(a));
+
+    f = z;
+    e = z;
+    a = LIPointAlign(LIMatrixTransformPoint(&f, &m));
+    XCTAssertTrue(LIPointEqualToPoint(a, e), @"Failed to transform point: %@", LIPointToString(a));
     
-    LIPoint_t p = LIMatrixTransformPoint(&z, &m);
-    NSLog(@"p: %@", LIPointToString(p));
+    
+    m = LIMatrixFocus(LIPointOrigin, nz);
+    
+    f = LIPointOrigin;
+    e = LIPointOrigin;
+    a = LIPointAlign(LIMatrixTransformPoint(&f, &m));
+    XCTAssertTrue(LIPointEqualToPoint(a, e), @"Failed to transform point: %@", LIPointToString(a));
+    
+    f = LIPointMake(1, 1, 1, 1);
+    e = LIPointMake(-1, 1, -1, 1);
+    a = LIPointAlign(LIMatrixTransformPoint(&f, &m));
+    XCTAssertTrue(LIPointEqualToPoint(a, e), @"Failed to transform point: %@", LIPointToString(a));
+    
+    
+    m = LIMatrixFocus(LIPointMake(10, 2, -3, 1), LIPointMake(-10, 2, -3, 1));
+    f = LIPointMake(0, 2, -3, 1);
+    e = LIPointMake(0, 0, 10, 1);
+    a = LIMatrixTransformPoint(&f, &m);
+    XCTAssertTrue(LIPointEqualToPoint(a, e), @"Failed to transform point: %@", LIPointToString(a));
+    
+    
+    LIPoint_t l = LIPointMake(1, 1, 1, 1);
+    m = LIMatrixFocus(LIPointOrigin, l);
+    e = LIPointMake(0, 0, LIFloatAlign(sqrtf(3.0)), 1);
+    a = LIPointAlign(LIMatrixTransformPoint(&l, &m));
+    XCTAssertTrue(LIPointEqualToPoint(a, e), @"Failed to transform point: %@", LIPointToString(a));
 }
 
 @end

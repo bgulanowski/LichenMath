@@ -336,17 +336,33 @@ LIMatrix_t LIMatrixInverse(LIMatrix_t m) {
 }
 
 LIMatrix_t LIMatrixFocus(LIPoint_t eye, LIPoint_t focus) {
-	
-	LIVector_t e3 = LIVectorMake(eye.x - focus.x, eye.y - focus.y, eye.z - focus.z);
-	LIVector_t Z = LIVectorNormalize(e3);
-	LIVector_t X = LIVectorNormalize(LIVectorCrossProduct(LIVectorMake(0, 1, 0), Z));
-	LIVector_t Y = LIVectorNormalize(LIVectorCrossProduct(Z, X));
+    
+	LIVector_t look = LIVectorNormalize(LIPointDifference(focus, eye));
+    LIVector_t ev = LIVectorFromPoint(eye);
+    LIVector_t Z, X, Y;
+    
+    float Zy = LIFloatAlign(look.y);
+    if (Zy == 1.0f) {
+        Z = LIVectorUnitY;
+        X = LIVectorScale(LIVectorUnitX, -1.0f);
+        Y = LIVectorUnitZ;
+    }
+    else if (Zy == -1.0f) {
+        Z = LIVectorScale(LIVectorUnitY, -1.0f);
+        X = LIVectorScale(LIVectorUnitX, -1.0f);
+        Y = LIVectorScale(LIVectorUnitZ, -1.0f);
+    }
+    else {
+        Z = look;
+        X = LIVectorNormalize(LIVectorCrossProduct(LIVectorMake(0, 1, 0), Z));
+        Y = LIVectorNormalize(LIVectorCrossProduct(Z, X));
+    }
 	
 	LIMatrix_t m;
 	m.v[0] = LIPointMake(X.x, Y.x, Z.x, 0);
 	m.v[1] = LIPointMake(X.y, Y.y, Z.y, 0);
 	m.v[2] = LIPointMake(X.z, Y.z, Z.z, 0);
-	m.v[3] = LIPointMake(-LIVectorDotProduct(X, e3), -LIVectorDotProduct(Y, e3), -LIVectorDotProduct(Z, e3), 1);
+	m.v[3] = LIPointMake(-LIVectorDotProduct(X, ev), -LIVectorDotProduct(Y, ev), -LIVectorDotProduct(Z, ev), 1);
 	return m;
 }
 
