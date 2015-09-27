@@ -39,6 +39,16 @@ static inline LIVector_t LIVectorMake(float x, float y, float z) {
 	return (LIVector_t){x, y, z};
 }
 
+static inline LIVector_t LIVectorMakeWithElement(int index, float f) {
+    float v[3] = { f, 0, 0 };
+    return LIVectorMake(v[index], v[(index+2)%3], v[(index+1)%3]);
+}
+
+static inline float LIVectorGetElement(LIVector_t v, int index) {
+    float f[3] = { v.x, v.y, v.z };
+    return f[index];
+}
+
 static inline LIVector_t LIVectorCopy(LIVector_t v) {
     return v;
 }
@@ -117,25 +127,13 @@ static LIVectorElement LIVectorDominantElement(LIVector_t v) {
 }
 
 static inline LIVector_t LIVectorClosestAxis(LIVector_t v) {
-    LIVector_t r = LIVectorZero;
-    switch (LIVectorDominantElement(v)) {
-        case LIVectorElementX:
-            r.x = v.x > 0 ? 1.0f : -1.0f;
-            break;
-        case LIVectorElementY:
-            r.y = v.y > 0 ? 1.0f : -1.0f;
-            break;
-        case LIVectorElementZ:
-            r.z = v.z > 0 ? 1.0f : -1.0f;
-            break;
-    }
-    return r;
+    int d = LIVectorDominantElement(v);
+    return LIVectorMakeWithElement(d, signbit(LIVectorGetElement(v, d)) ? -1.0f : 1.0f);
 }
 
 static inline LIVector_t LIVectorSortedElements(LIVector_t v) {
-    qsort_b(&v, 3, sizeof(float), ^int(const void *a_p, const void *b_p) {
-        float a = *(float*)a_p, b = *(float*)b_p;
-        return a > b ? 1 : b == a ? 0 : -1;
+    qsort_b(&v, 3, sizeof(float), (int(^)(const void*, const void*)) ^int(const float *a, const float *b) {
+        return *a > *b ? 1 : *b == *a ? 0 : -1;
     });
     return v;
 }

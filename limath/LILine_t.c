@@ -8,6 +8,28 @@
 
 #include "LILine_t.h"
 
+LILine_t LILineNormalize(LILine_t l) {
+    
+    if (LIVectorIsZero(l.v)) {
+        return LILineZero;
+    }
+    else {
+        switch (LIVectorDominantElement(l.v)) {
+            case LIVectorElementX:
+                return LILineMake(LILineInterceptX0(l), LIVectorNormalize(l.v));
+                break;
+                
+            case LIVectorElementY:
+                return LILineMake(LILineInterceptY0(l), LIVectorNormalize(l.v));
+                break;
+                
+            case LIVectorElementZ:
+                return LILineMake(LILineInterceptZ0(l), LIVectorNormalize(l.v));
+                break;
+        }
+    }
+}
+
 // project lines onto an orthogonal plane and substitute one equation into the other
 // plane must not be perpendicular to either line
 

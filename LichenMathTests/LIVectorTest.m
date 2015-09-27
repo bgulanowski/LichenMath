@@ -180,7 +180,9 @@ NSSet *sumsOfSquares( BOOL uniques, const float max_root );
 }
 
 - (void)testVectorClosestAxis {
-    XCTAssertTrue(LIVectorEqualToVector(LIVectorClosestAxis(TEST_VECTOR), LIVectorUnitY));
+    LIVector_t a = LIVectorClosestAxis(TEST_VECTOR);
+    LIVector_t e = LIVectorUnitY;
+    XCTAssertTrue(LIVectorEqualToVector(a, e), @"%@ != %@", LIVectorToString(a), LIVectorToString(e));
 }
 
 - (void)testVectorSortedElements {

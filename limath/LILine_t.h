@@ -97,27 +97,7 @@ static inline LIPoint_t LILineInterceptZ0(LILine_t l) {
     return LILineInterceptZ(l, 0);
 }
 
-static inline LILine_t LILineNormalize(LILine_t l) {
-    
-    if (LIVectorIsZero(l.v)) {
-        return LILineZero;
-    }
-    else {
-        switch (LIVectorDominantElement(l.v)) {
-            case LIVectorElementX:
-                return LILineMake(LILineInterceptX0(l), LIVectorNormalize(l.v));
-                break;
-                
-            case LIVectorElementY:
-                return LILineMake(LILineInterceptY0(l), LIVectorNormalize(l.v));
-                break;
-                
-            case LIVectorElementZ:
-                return LILineMake(LILineInterceptZ0(l), LIVectorNormalize(l.v));
-                break;
-        }
-    }
-}
+extern LILine_t LILineNormalize(LILine_t l);
 
 static inline bool LILineEqualToLine(LILine_t l1, LILine_t l2) {
     LILine_t l1n = LILineNormalize(l1);
