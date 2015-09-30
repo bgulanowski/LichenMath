@@ -192,6 +192,30 @@ static inline bool LIPointInRegion(LIPoint_t p, LIRegion_t r) {
     return LIPointBetweenPoints(p, LIRegionOrigin(r), LIRegionExtent(r));
 }
 
+static inline float LIRegionMinX(LIRegion_t r) {
+    return r.origin.p.x;
+}
+
+static inline float LIRegionMinY(LIRegion_t r) {
+    return r.origin.p.y;
+}
+
+static inline float LIRegionMinZ(LIRegion_t r) {
+    return r.origin.p.z;
+}
+
+static inline float LIRegionMaxX(LIRegion_t r) {
+    return r.origin.p.x + r.volume.s.w;
+}
+
+static inline float LIRegionMaxY(LIRegion_t r) {
+    return r.origin.p.y + r.volume.s.h;
+}
+
+static inline float LIRegionMaxZ(LIRegion_t r) {
+    return r.origin.p.z + r.volume.s.d;
+}
+
 #pragma mark -
 
 typedef struct {
