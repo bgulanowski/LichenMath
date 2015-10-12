@@ -30,7 +30,7 @@ LIRegionLineIntersection LIRegionIntersectWithLine(LIRegion_t r, LILine_t l) {
         skip = LIPointEqualToPoint2D(test, origin);
     }
     if (!skip) {
-        test = LILineInterceptY(l, origin.y);
+        test = LIPointAlign(LILineInterceptY(l, origin.y));
         if (!LIPointIsZero(test) && LIPointBetweenPointsZX(test, origin, extent)) {
             points[count++] = test;
         }
