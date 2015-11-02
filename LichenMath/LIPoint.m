@@ -73,8 +73,9 @@ LIPoint_t LIPointFromString(NSString *string) {
 }
 
 - (LIPoint *)pointWithMatrix:(LIMatrix *)transform {
-//	LIPoint_t r;
-	return nil;
+    LIPoint *r = [self copy];
+    [r applyMatrix:transform];
+    return r;
 }
 
 - (void)applyMatrix:(LIMatrix *)matrix {
