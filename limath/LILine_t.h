@@ -97,6 +97,18 @@ static inline LIPoint_t LILineInterceptZ0(LILine_t l) {
     return LILineInterceptZ(l, 0);
 }
 
+static inline float LILineDistanceToX0(LILine_t l) {
+    return LIPointDistance(LILineInterceptX0(l), l.p);
+}
+
+static inline float LILineDistanceToY0(LILine_t l) {
+    return LIPointDistance(LILineInterceptY0(l), l.p);
+}
+
+static inline float LILineDistanceToZ0(LILine_t l) {
+    return LIPointDistance(LILineInterceptZ0(l), l.p);
+}
+
 extern LILine_t LILineNormalize(LILine_t l);
 
 static inline bool LILineEqualToLine(LILine_t l1, LILine_t l2) {
