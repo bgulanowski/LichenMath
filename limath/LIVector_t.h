@@ -12,6 +12,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <sys/param.h>
+#include <LichenMath/LIMathUtilities.h>
 
 typedef struct {
 	float x;
@@ -87,7 +88,7 @@ static inline float LIVectorLength(LIVector_t v) {
 }
 
 static inline LIVector_t LIVectorScale(LIVector_t v, float s) {
-    return LIVectorMake(v.x * s, v.y * s, v.z * s);
+    return LIVectorMake(LIFloatAlign(v.x * s), LIFloatAlign(v.y * s), LIFloatAlign(v.z * s));
 }
 
 static inline bool LIVectorElementsEqual(LIVector_t v) {

@@ -73,7 +73,7 @@ static inline LIPoint_t LIMatrixTransformPoint(LIPoint_t * const a, LIMatrix_t *
 #pragma mark - matrix creation
 
 static inline LIMatrix_t LIMatrixMake(float elements[16]) {
-	LIMatrix_t matrix;
+    LIMatrix_t matrix = {};
 	for (unsigned i=0; i<16; ++i) {
 		matrix.i[i] = elements[i];
 	}
