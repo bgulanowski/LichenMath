@@ -80,6 +80,10 @@ static inline LIMatrix_t LIMatrixMake(float elements[16]) {
 	return matrix;
 }
 
+static inline LIMatrix_t LIMatrixMakeIdentity() {
+    return LIMatrixMake(LIMatrixIdentity.i);
+}
+
 static inline void LIMatrixInit(LIMatrix_t *m, float elements[16]) {
 	float *mi = m->i;
 	for (unsigned i=0; i<16; ++i) {
