@@ -324,7 +324,7 @@ static inline float *LIMatrixInverseN(float *m, unsigned n) {
 
 LIMatrix_t LIMatrixInverse(LIMatrix_t m) {
     
-    LIMatrix_t result;
+    LIMatrix_t result = {};
     float *temp = LIMatrixInverseN(m.i, 4);
     
     for(unsigned i=0; i<16; ++i)

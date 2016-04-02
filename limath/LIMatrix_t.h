@@ -194,7 +194,7 @@ _mt_.i[_c_*_i_ + _j_] = _m_.i[_c_*_j_ + _i_];\
 } while(0)
 
 static inline LIMatrix_t LIMatrixTranspose(LIMatrix_t a) {
-	LIMatrix_t m;
+    LIMatrix_t m = {};
 	LIMatrixTranspose_(m, a, 4);
 	return m;
 }
