@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		8415C9561B7A171A00D85A50 /* LIVectorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8415C9551B7A171A00D85A50 /* LIVectorTest.m */; };
 		842015E5198D233600853E68 /* LichenMath.h in Headers */ = {isa = PBXBuildFile; fileRef = 84780D77197F353C000C3B9B /* LichenMath.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		842DBA6D1BB819A300072D46 /* LIMatrixTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 842DBA6C1BB819A300072D46 /* LIMatrixTest.m */; settings = {ASSET_TAGS = (); }; };
+		842DBA6D1BB819A300072D46 /* LIMatrixTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 842DBA6C1BB819A300072D46 /* LIMatrixTest.m */; };
 		84552005198D358B00571109 /* LichenMath_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 84552003198D358B00571109 /* LichenMath_Private.h */; };
 		8455200F198D446E00571109 /* liblimath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8455200B198D445000571109 /* liblimath.a */; };
 		84552014198D44CF00571109 /* LIVector_t.h in Headers */ = {isa = PBXBuildFile; fileRef = 84552013198D44CF00571109 /* LIVector_t.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -60,11 +60,11 @@
 		84E2922D1980DF0200064591 /* LIMatrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 84E2922B1980DF0200064591 /* LIMatrix.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84E2922E1980DF0200064591 /* LIMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E2922C1980DF0200064591 /* LIMatrix.m */; };
 		84E2922F1980E03E00064591 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84780D6D197F353C000C3B9B /* Foundation.framework */; };
-		84FB383D1BB5FA0A00A9FCEE /* LichenMathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 84780D8B197F353C000C3B9B /* LichenMathTests.m */; settings = {ASSET_TAGS = (); }; };
-		84FB383F1BB6D6B000A9FCEE /* LIPointTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FB383E1BB6D6B000A9FCEE /* LIPointTest.m */; settings = {ASSET_TAGS = (); }; };
-		84FB38411BB6E1FB00A9FCEE /* LILineTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FB38401BB6E1FB00A9FCEE /* LILineTest.m */; settings = {ASSET_TAGS = (); }; };
-		84FB38451BB8013F00A9FCEE /* LIRegion_t.c in Sources */ = {isa = PBXBuildFile; fileRef = 84FB38441BB8013F00A9FCEE /* LIRegion_t.c */; settings = {ASSET_TAGS = (); }; };
-		84FB38461BB8013F00A9FCEE /* LIRegion_t.c in Sources */ = {isa = PBXBuildFile; fileRef = 84FB38441BB8013F00A9FCEE /* LIRegion_t.c */; settings = {ASSET_TAGS = (); }; };
+		84FB383D1BB5FA0A00A9FCEE /* LichenMathTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 84780D8B197F353C000C3B9B /* LichenMathTests.m */; };
+		84FB383F1BB6D6B000A9FCEE /* LIPointTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FB383E1BB6D6B000A9FCEE /* LIPointTest.m */; };
+		84FB38411BB6E1FB00A9FCEE /* LILineTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FB38401BB6E1FB00A9FCEE /* LILineTest.m */; };
+		84FB38451BB8013F00A9FCEE /* LIRegion_t.c in Sources */ = {isa = PBXBuildFile; fileRef = 84FB38441BB8013F00A9FCEE /* LIRegion_t.c */; };
+		84FB38461BB8013F00A9FCEE /* LIRegion_t.c in Sources */ = {isa = PBXBuildFile; fileRef = 84FB38441BB8013F00A9FCEE /* LIRegion_t.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -465,7 +465,7 @@
 		84780D5E197F353C000C3B9B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Lichen Labs";
 				TargetAttributes = {
 					84780D7D197F353C000C3B9B = {
@@ -655,19 +655,30 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -694,19 +705,30 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -831,7 +853,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -866,7 +888,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
