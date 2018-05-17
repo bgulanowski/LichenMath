@@ -93,6 +93,10 @@ static inline float LIPointDistance(LIPoint_t p1, LIPoint_t p2) {
     return LIVectorLength(LIPointDifference(p1, p2));
 }
 
+static inline bool LIPointCloseToPoint(LIPoint_t p1, LIPoint_t p2) {
+    return LIPointDistance(p1, p2) < 0.001;
+}
+
 static inline bool LIPointBetweenPointsX(LIPoint_t p, LIPoint_t p1, LIPoint_t p2) {
     return LIFloatBetweenFloats(p.x, p1.x, p2.x);
 }
