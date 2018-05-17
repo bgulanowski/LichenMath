@@ -94,7 +94,7 @@ static inline float LIPointDistance(LIPoint_t p1, LIPoint_t p2) {
 }
 
 static inline bool LIPointCloseToPoint(LIPoint_t p1, LIPoint_t p2) {
-    return LIPointDistance(p1, p2) < 0.001;
+    return LIPointDistance(p1, p2) < 0.0000001;
 }
 
 static inline bool LIPointBetweenPointsX(LIPoint_t p, LIPoint_t p1, LIPoint_t p2) {

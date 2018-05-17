@@ -344,17 +344,17 @@ LIMatrix_t LIMatrixFocus(LIPoint_t eye, LIPoint_t focus) {
     float Zy = LIFloatAlign(look.y);
     if (Zy == 1.0f) {
         Z = LIVectorUnitY;
-        X = LIVectorScale(LIVectorUnitX, -1.0f);
+        X = LIVectorInverse(LIVectorUnitX);
         Y = LIVectorUnitZ;
     }
     else if (Zy == -1.0f) {
-        Z = LIVectorScale(LIVectorUnitY, -1.0f);
-        X = LIVectorScale(LIVectorUnitX, -1.0f);
-        Y = LIVectorScale(LIVectorUnitZ, -1.0f);
+        Z = LIVectorInverse(LIVectorUnitY);
+        X = LIVectorInverse(LIVectorUnitX);
+        Y = LIVectorInverse(LIVectorUnitZ);
     }
     else {
         Z = look;
-        X = LIVectorNormalize(LIVectorCrossProduct(LIVectorMake(0, 1, 0), Z));
+        X = LIVectorNormalize(LIVectorCrossProduct(LIVectorUnitY, Z));
         Y = LIVectorNormalize(LIVectorCrossProduct(Z, X));
     }
 	

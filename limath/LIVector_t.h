@@ -88,7 +88,7 @@ static inline float LIVectorLength(LIVector_t v) {
 }
 
 static inline LIVector_t LIVectorScale(LIVector_t v, float s) {
-    return LIVectorMake(LIFloatAlign(v.x * s), LIFloatAlign(v.y * s), LIFloatAlign(v.z * s));
+    return LIVectorMake(v.x * s, v.y * s, v.z * s);
 }
 
 static inline bool LIVectorElementsEqual(LIVector_t v) {

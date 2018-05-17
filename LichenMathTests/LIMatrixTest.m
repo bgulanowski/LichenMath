@@ -187,7 +187,7 @@
     m = LIMatrixFocus(LIPointOrigin, l);
     e = LIPointMake(0, 0, sqrtf(3.0), 1);
     a = LIMatrixTransformPoint(&l, &m);
-    XCTAssertTrue(LIPointCloseToPoint(a, e), @"Failed to transform point: %@", LIPointToString(a));
+    XCTAssertTrue(LIPointEqualToPoint(a, e), @"Failed to transform point: %@", LIPointToString(a));
 }
 
 @end
