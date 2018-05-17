@@ -39,8 +39,8 @@ NSSet *sumsOfSquares( BOOL uniques, const float max_root );
     NSSet *_vectorInfos;
 }
 
-- (instancetype)init {
-    self = [super init];
+- (instancetype)initWithInvocation:(NSInvocation *)invocation {
+    self = [super initWithInvocation:invocation];
     if (self) {
         _vectorInfos = sumsOfSquares(YES, 32.f);
     }
@@ -153,7 +153,6 @@ NSSet *sumsOfSquares( BOOL uniques, const float max_root );
 
 - (void)testVectorInverse {
     LIVector_t v = LIVectorInverse(TEST_VECTOR);
-    XCTAssertEqual(v.x, -TEST_VECTOR.x);
     XCTAssertEqual(v.x, -TEST_VECTOR.x);
     XCTAssertEqual(v.y, -TEST_VECTOR.y);
     XCTAssertEqual(v.z, -TEST_VECTOR.z);
