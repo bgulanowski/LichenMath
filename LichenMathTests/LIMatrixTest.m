@@ -131,22 +131,22 @@
     
     LIMatrix_t m = LIMatrixMakeWithZAxisRotation(M_PI_2);
     LIPoint_t a = LIPointAlign(LIMatrixTransformPoint(&x, &m));
-    XCTAssertTrue(LIPointEqualToPoint(a, nz), @"Rotate  X about Z failed: %@", LIPointToString(a));
+    XCTAssertTrue(LIPointEqualToPoint(a,  y), @"Rotate  X about Z failed: %@", LIPointToString(a));
     
     a = LIPointAlign(LIMatrixTransformPoint(&nx, &m));
-    XCTAssertTrue(LIPointEqualToPoint(a,  z), @"Rotate -X about Z failed: %@", LIPointToString(a));
+    XCTAssertTrue(LIPointEqualToPoint(a, ny), @"Rotate -X about Z failed: %@", LIPointToString(a));
     
     a = LIPointAlign(LIMatrixTransformPoint(&y, &m));
-    XCTAssertTrue(LIPointEqualToPoint(a,  y), @"Rotate  Y about Z failed: %@", LIPointToString(a));
+    XCTAssertTrue(LIPointEqualToPoint(a, nx), @"Rotate  Y about Z failed: %@", LIPointToString(a));
     
     a = LIPointAlign(LIMatrixTransformPoint(&ny, &m));
-    XCTAssertTrue(LIPointEqualToPoint(a, ny), @"Rotate -Y about Z failed: %@", LIPointToString(a));
+    XCTAssertTrue(LIPointEqualToPoint(a,  x), @"Rotate -Y about Z failed: %@", LIPointToString(a));
     
     a = LIPointAlign(LIMatrixTransformPoint(&z, &m));
-    XCTAssertTrue(LIPointEqualToPoint(a,  x), @"Rotate  Z about Z failed: %@", LIPointToString(a));
+    XCTAssertTrue(LIPointEqualToPoint(a,  z), @"Rotate  Z about Z failed: %@", LIPointToString(a));
     
     a = LIPointAlign(LIMatrixTransformPoint(&nz, &m));
-    XCTAssertTrue(LIPointEqualToPoint(a, nx), @"Rotate -Z about Z failed: %@", LIPointToString(a));
+    XCTAssertTrue(LIPointEqualToPoint(a, nz), @"Rotate -Z about Z failed: %@", LIPointToString(a));
 }
 
 - (void)testLIMatrixFocus {
@@ -185,9 +185,9 @@
     
     LIPoint_t l = LIPointMake(1, 1, 1, 1);
     m = LIMatrixFocus(LIPointOrigin, l);
-    e = LIPointMake(0, 0, LIFloatAlign(sqrtf(3.0)), 1);
-    a = LIPointAlign(LIMatrixTransformPoint(&l, &m));
-    XCTAssertTrue(LIPointEqualToPoint(a, e), @"Failed to transform point: %@", LIPointToString(a));
+    e = LIPointMake(0, 0, sqrtf(3.0), 1);
+    a = LIMatrixTransformPoint(&l, &m);
+    XCTAssertTrue(LIPointCloseToPoint(a, e), @"Failed to transform point: %@", LIPointToString(a));
 }
 
 @end
