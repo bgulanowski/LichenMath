@@ -26,8 +26,8 @@
     LIPoint_t nz;
 }
 
-- (id)initWithSelector:(SEL)selector {
-    self = [super initWithSelector:selector];
+- (id)initWithInvocation:(NSInvocation *)invocation {
+    self = [super initWithInvocation:invocation];
     if (self) {
         x = LIPointFromVector(LIVectorUnitX, 1);
         y = LIPointFromVector(LIVectorUnitY, 1);
