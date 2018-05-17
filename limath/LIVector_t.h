@@ -104,7 +104,7 @@ static inline bool LIVectorParallelToVector(LIVector_t v1, LIVector_t v2) {
 }
 
 static inline LIVector_t LIVectorInverse(LIVector_t v) {
-    return LIVectorScale(v, -1.0f);
+    return LIVectorMake(-v.x, -v.y, -v.z);
 }
 
 static inline LIVector_t LIVectorRotate(LIVector_t v) {
