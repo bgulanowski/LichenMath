@@ -470,9 +470,6 @@
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Lichen Labs";
 				TargetAttributes = {
-					84780D7D197F353C000C3B9B = {
-						TestTargetID = 84780D66197F353C000C3B9B;
-					};
 					84B8F1C01A183A17000C1AE5 = {
 						CreatedOnToolsVersion = 6.1;
 					};
@@ -781,7 +778,6 @@
 		84780D93197F353C000C3B9B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/LichenMath.framework/Versions/A/LichenMath";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -789,14 +785,10 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LichenMath/LichenMath-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "LichenMathTests/LichenMathTests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lichenlabs.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -804,7 +796,6 @@
 		84780D94197F353C000C3B9B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/LichenMath.framework/Versions/A/LichenMath";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -815,7 +806,6 @@
 				INFOPLIST_FILE = "LichenMathTests/LichenMathTests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lichenlabs.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
