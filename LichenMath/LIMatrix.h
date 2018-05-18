@@ -10,6 +10,8 @@
 
 #import <LichenMath/LIMatrix_t.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class LIPoint;
 
 extern NSString *LIMatrixEntryToString(LIMatrixEntry_t e);
@@ -35,5 +37,7 @@ extern LIMatrix_t LIMatrixFromString(NSString *string);
 - (float)valueForElement:(intptr_t)e;
 
 - (void)setValues:(float *)v forElements:(intptr_t *)elements count:(NSUInteger)count;
+
+NS_ASSUME_NONNULL_END
 
 @end
