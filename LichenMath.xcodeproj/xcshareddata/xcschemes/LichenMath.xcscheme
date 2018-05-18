@@ -17,7 +17,7 @@
                BlueprintIdentifier = "84780D66197F353C000C3B9B"
                BuildableName = "LichenMath.framework"
                BlueprintName = "LichenMath"
-               ReferencedContainer = "container:../../../github/Cocoa3D/LichenMath/LichenMath.xcodeproj">
+               ReferencedContainer = "container:LichenMath.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "84780D7D197F353C000C3B9B"
                BuildableName = "LichenMathTests.xctest"
                BlueprintName = "LichenMathTests"
-               ReferencedContainer = "container:../../../github/Cocoa3D/LichenMath/LichenMath.xcodeproj">
+               ReferencedContainer = "container:LichenMath.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -58,7 +58,7 @@
             BlueprintIdentifier = "84780D66197F353C000C3B9B"
             BuildableName = "LichenMath.framework"
             BlueprintName = "LichenMath"
-            ReferencedContainer = "container:../../../github/Cocoa3D/LichenMath/LichenMath.xcodeproj">
+            ReferencedContainer = "container:LichenMath.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
