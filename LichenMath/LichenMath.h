@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import <LichenMath/LIPlane_t.h>
+
 #import <LichenMath/LIMatrix.h>
 #import <LichenMath/LIPoint.h>
 #import <LichenMath/LIRange.h>

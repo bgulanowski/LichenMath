@@ -14,6 +14,8 @@ FOUNDATION_EXPORT double LichenMath_iOSVersionNumber;
 //! Project version string for LichenMath-iOS.
 FOUNDATION_EXPORT const unsigned char LichenMath_iOSVersionString[];
 
+#import <LichenMath/LIPlane_t.h>
+
 #import <LichenMath/LIMatrix.h>
 #import <LichenMath/LIPoint.h>
 #import <LichenMath/LIRange.h>
