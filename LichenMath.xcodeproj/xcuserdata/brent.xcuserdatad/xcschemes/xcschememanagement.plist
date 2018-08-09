@@ -14,14 +14,16 @@
 		<key>LichenMath.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>isShown</key>
-			<true/>
+			<false/>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>10</integer>
 		</dict>
 		<key>LichenMath_iOS.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false/>
 			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>11</integer>
 		</dict>
 		<key>limath.xcscheme</key>
 		<dict>
