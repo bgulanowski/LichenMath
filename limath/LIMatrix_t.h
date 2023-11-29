@@ -80,7 +80,7 @@ static inline LIMatrix_t LIMatrixMake(float elements[16]) {
 	return matrix;
 }
 
-static inline LIMatrix_t LIMatrixMakeIdentity() {
+static inline LIMatrix_t LIMatrixMakeIdentity(void) {
     return LIMatrixMake(LIMatrixIdentity.i);
 }
 
